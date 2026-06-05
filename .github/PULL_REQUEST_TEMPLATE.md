@@ -22,6 +22,7 @@ Closes #(issue number, if applicable)
 Describe how you verified your changes.
 
 - [ ] `npm run build` passes locally
+- [ ] `npm run format:check` passes (code is Prettier-formatted)
 - [ ] Tested in the browser (`npm run dev`)
 - [ ] Tested responsive layout (mobile / tablet / desktop)
 - [ ] Verified animations still work and did not break scroll/routing

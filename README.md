@@ -11,14 +11,6 @@ sections.
 Instead of starting from a blank page, you fork the project, edit a few data files,
 swap the assets, and ship a polished animated portfolio.
 
-## Live Demo
-
-- Demo: https://zickrian.com
-- Replace this link with your own deployment after you customize the content.
-
-> The live demo is the maintainer's personal portfolio. It shows what the starter can
-> look like once the example data is replaced with real content.
-
 ## Features
 
 - **React + Vite** for a fast dev server and optimized production builds.

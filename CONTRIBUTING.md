@@ -65,6 +65,9 @@ and more likely to stall.
 
 ## Coding style
 
+- **Formatting:** this project uses [Prettier](https://prettier.io). Run
+  `npm run format` to format your changes, or `npm run format:check` to verify them.
+  Config lives in `.prettierrc.json`.
 - **Language:** JavaScript + JSX (React 19, function components and hooks).
 - **Indentation:** match the surrounding file (the codebase uses spaces; see
   `.editorconfig`).
