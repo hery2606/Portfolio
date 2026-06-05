@@ -19,6 +19,7 @@
 .env.production.local
 .env
 .env.*
+!.env.example
 .vite/
 
 npm-debug.log*

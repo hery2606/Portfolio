@@ -1,7 +1,31 @@
 {
-  "name": "portofolio",
+  "name": "motionfolio",
   "version": "0.1.0",
   "private": true,
+  "description": "Open-source animated portfolio starter with React, Vite, Tailwind CSS, GSAP, Lenis, and an optional AI terminal assistant.",
+  "keywords": [
+    "portfolio",
+    "starter",
+    "template",
+    "react",
+    "vite",
+    "tailwindcss",
+    "gsap",
+    "scrolltrigger",
+    "lenis",
+    "animation",
+    "developer-portfolio"
+  ],
+  "license": "MIT",
+  "author": "Firdaus Zickrian",
+  "homepage": "https://github.com/zickrian/Portfolio-dev#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zickrian/Portfolio-dev.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zickrian/Portfolio-dev/issues"
+  },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.19",
     "gsap": "^3.14.2",

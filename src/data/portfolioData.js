@@ -1,3 +1,20 @@
+// ─── Portfolio Data (single source of truth for site content) ────
+//
+// This is the LIVE data the site renders and the AI assistant reads. It is
+// imported by `src/services/aiContext.js` and `src/components/ChatWidget.jsx`.
+//
+// CUSTOMIZING: edit the values below with your own details. For a clean,
+// fully-commented starter template (with guidance on every field), see
+// `src/data/examplePortfolioData.js`. See also `docs/customization.md`.
+//
+// FIELDS TO EDIT:
+//   profile.name / role / bio / location / email / socials  → your identity
+//   experience[]   → your work / organization / education history
+//   techStack[]    → your skills, grouped by `category`
+//   projects[]     → short project summaries (keep `slug` in sync with
+//                    projectMeta.js + projectDetailsData.js)
+//   achievements[] → awards / hackathons (optional)
+//   capabilities[] → high-level specializations
 export const PORTFOLIO_DATA = {
     profile: {
         name: "Firdaus Khotibul Zickrian",

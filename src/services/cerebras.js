@@ -1,5 +1,21 @@
 import { generateSystemPrompt, buildScopedContext } from './aiContext';
 
+// ─────────────────────────────────────────────────────────────────
+// ⚠️  SECURITY WARNING — DEMO-ONLY (NOT PRODUCTION-SAFE) ⚠️
+// ─────────────────────────────────────────────────────────────────
+// This module calls the Cerebras API DIRECTLY FROM THE BROWSER using a key read
+// from `import.meta.env`. Vite inlines every `VITE_*` / `REACT_APP_*` variable into
+// the CLIENT BUNDLE at build time, so this key is shipped to every visitor and is
+// publicly readable via DevTools or the bundled JS.
+//
+// This is fine for LOCAL DEVELOPMENT and quick DEMOS, but it is NOT SAFE for
+// production with a private/billable key — anyone can extract and abuse it.
+//
+// For production, route requests through a server-side / serverless proxy that
+// holds the key as a SERVER SECRET, and have the frontend call your own endpoint
+// (e.g. POST /api/chat) instead of the provider directly. See docs/ai-terminal.md
+// and SECURITY.md for a recommended architecture and a proxy example.
+// ─────────────────────────────────────────────────────────────────
 const API_KEY = (
     import.meta.env.VITE_CEREBRAS_API_KEY ||
     import.meta.env.REACT_APP_CEREBRAS_API_KEY ||
