@@ -1,8 +1,8 @@
 import { memo, useState, lazy, Suspense } from 'react';
-import { Gsap } from '../utils/gsapAnimate';
+import { Gsap } from '../../utils/gsapAnimate';
 import { Trophy, ArrowUpRight, MapPin } from 'lucide-react';
 
-const HackathonDetailModal = lazy(() => import('./HackathonDetailModal'));
+const HackathonDetailModal = lazy(() => import('../HackathonDetailModal'));
 
 /* ─────────────────────────────────────────
    Static data
@@ -21,7 +21,7 @@ const achievements = [
 
 const STATS = [
   { value: 'BUILD', label: 'Hands-on\nApproach' },
-  { value: 'AI+WEB', label: 'Product\nStack' },
+  { value: 'WEB', label: 'Product\nStack' },
   { value: 'OPEN', label: 'To\nCollab' },
 ];
 
@@ -170,10 +170,10 @@ const AboutSection = memo(function AboutSection() {
                 <div className="absolute inset-0 bg-black/[0.12] group-hover:bg-transparent transition-colors duration-700 z-10 mix-blend-multiply pointer-events-none" />
 
                 <picture>
-                  <source srcSet="/profilee.webp" type="image/webp" />
+                  <source srcSet="/profile2.webp" type="image/webp" />
                   <img
-                    src="/profilee.webp"
-                    alt="Firdaus Zickrian"
+                    src="/profile2.webp"
+                    alt=" HERI ARISTA "
                     loading="lazy"
                     decoding="async"
                     className="w-full h-full object-cover object-top grayscale-[25%] group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -183,7 +183,7 @@ const AboutSection = memo(function AboutSection() {
                 {/* Name plate at bottom */}
                 <div className="absolute bottom-0 left-0 right-0 px-5 pt-10 pb-4 bg-gradient-to-t from-black/65 via-black/30 to-transparent z-20">
                   <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-white/50 mb-0.5">Name</p>
-                  <p className="text-white font-bold text-[15px] tracking-wide leading-snug">Firdaus Zickrian</p>
+                  <p className="text-white font-bold text-[15px] tracking-wide leading-snug">HERI ARISTA</p>
                 </div>
 
                 {/* Corner brackets */}
@@ -244,11 +244,11 @@ const AboutSection = memo(function AboutSection() {
               {/* Main title */}
               <h2 className="font-display font-bold tracking-[-0.025em] leading-[1.08] text-black">
                 <span className="block text-[44px] sm:text-[56px] lg:text-[64px] xl:text-[72px]">
-                  AI Engineer
+                  Front-End Developer
                 </span>
 
                 <span className="block text-[22px] sm:text-[26px] lg:text-[30px] xl:text-[34px] font-medium tracking-[-0.01em] text-black/55 mt-2">
-                  with Full-Stack Product Delivery
+                  with Frontend and vibe coder
                 </span>
               </h2>
             </Gsap.div>
@@ -263,7 +263,7 @@ const AboutSection = memo(function AboutSection() {
             >
 
               <span className="font-mono text-[10px] md:text-[10.5px] uppercase tracking-[0.2em] text-black/35">
-                Computer Vision · LLM Systems · Full-Stack Delivery
+                Front-End Developer · Frontend and vibe coder
               </span>
             </Gsap.div>
 
@@ -276,10 +276,10 @@ const AboutSection = memo(function AboutSection() {
               className="space-y-4 text-[15px] md:text-[15.5px] font-light text-black/60 leading-[1.88] max-w-[580px]"
             >
               <p>
-                I'm <strong className="text-black font-semibold">Firdaus Zickrian</strong>, an AI Engineer focused on building intelligent systems that are not only innovative, but production-ready and measurable in real-world environments.
+                I'm <strong className="text-black font-semibold">HERI ARISTA</strong>, a Frontend Developer focused on building intelligent systems that are not only innovative, but production-ready and measurable in real-world environments.
               </p>
               <p>
-                I specialize in Computer Vision and LLM-powered products, with full-stack delivery as a supporting strength to move ideas from prototype to reliable digital products.
+                I specialize in Frontend , with full-stack delivery as a supporting strength to move ideas from prototype to reliable digital products.
               </p>
             </Gsap.div>
 

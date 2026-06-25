@@ -95,19 +95,21 @@ async function* parseOpenAICompatibleStream(response) {
 }
 
 /**
- * Stream chat completions from Cerebras.
+ * Stream chat completions directly from Cerebras.
  * Yields text chunks as they arrive.
  * @param {Array} messages - Chat messages (already limited by caller)
+ * @param {string} vibe - AI Vibe (ramah, pro, hacker)
+ * @param {boolean} freeMode - Freedom mode toggle
  * @returns {AsyncGenerator<string>} - Yields text content chunks
  */
-export async function* streamCerebras(messages) {
+export async function* streamCerebras(messages, vibe = 'ramah', freeMode = false) {
     if (!API_KEY) {
         const error = new Error('Missing API key');
         error.status = 401;
         throw classifyError(error);
     }
 
-    const systemPrompt = generateSystemPrompt();
+    const systemPrompt = generateSystemPrompt(vibe, freeMode);
     const latestUserMessage = [...messages].reverse().find(m => m.role === 'user')?.content || '';
     const scopedContext = buildScopedContext(latestUserMessage);
 

@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { Gsap } from "../utils/gsapAnimate";
+import { Gsap } from "../../utils/gsapAnimate";
 import { ArrowUpRight } from "lucide-react";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { PROJECT_META } from "../data/projectMeta";
+import { PROJECT_META } from "../../data/projectMeta";
 
 const INDICATOR_CARD_WIDTH = 600;
 const INDICATOR_GAP = 48;
@@ -288,12 +288,12 @@ export default function ProjectGallery({ onOpenProject }) {
             <div className="flex-1 h-[1px] bg-white/5" />
           </div>
 
-          <h2 className="text-5xl font-black text-white uppercase leading-[0.92] tracking-tight">
+          <h2 className="text-3xl font-black text-white uppercase leading-[0.92] tracking-tight">
             Past<br />
-            <span className="text-lime-400">Explorations</span>
+            <span className="text-lime-400">Exploration</span>
           </h2>
           <p className="mt-4 text-neutral-400 text-sm leading-6 max-w-sm">
-            Transforming ideas into real-world applications.
+            Transforming ideas into re
           </p>
         </div>
 
@@ -418,7 +418,7 @@ export default function ProjectGallery({ onOpenProject }) {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="flex flex-col justify-center shrink-0 h-[70vh] w-[40vw]"
           >
-            <h2 className="text-6xl lg:text-8xl font-black text-white uppercase leading-[0.92]">
+            <h2 className="text-5xl lg:text-7xl font-black text-white uppercase leading-[0.92]">
               Past<br />
               <span className="text-lime-400">Explorations</span>
             </h2>

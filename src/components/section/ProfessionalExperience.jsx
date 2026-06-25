@@ -1,67 +1,45 @@
 import { useMemo, useState } from 'react';
-import { Gsap, GsapPresence } from '../utils/gsapAnimate';
+import { Gsap, GsapPresence } from '../../utils/gsapAnimate';
 // Note: scroll-triggered entrance animations removed from this section intentionally
 import { Plus, Calendar, Building2, Sparkles, ArrowUpRight } from 'lucide-react';
 
 const experiences = [
   {
-    company: 'GDSC Udinus',
-    role: 'Developer Community',
-    period: 'Nov 2023 - Nov 2025',
-    impact: 'Contributed to 5+ technical discussions across 4 collaborative projects.',
-    stack: ['Community', 'Workshops', 'Collaboration'],
+    company: 'Smart clinic',
+    role: 'Lead of Web Development',
+    period: 'April 2026 - Present',
+    impact: 'Delivered a high-performance clinic POS & medical records platform with secure role-based access.',
+    stack: ['React 19', 'TypeScript', 'Zustand', 'TanStack Query', 'Tailwind v4', 'Shadcn UI'],
     description: [
-      'Actively participated in workshops, technical events, and collaborative learning sessions.',
-      'Contributed insights around development and analytics in community-driven projects.',
+      'Led the frontend web engineering team in designing and implementing a modern Point of Sale (POS) and clinical medical records management platform.',
+      'Established global state management architecture using Zustand and optimized caching strategies with TanStack React Query v5.',
+      'Integrated responsive dashboards with visual analytics using Recharts for monitoring clinic revenue and patient trends.',
+    ],
+  },
+
+  {
+    company: 'Universitas Ahmad Dahlan',
+    role: 'Frontend Developer',
+    period: 'Feb 2026 - Des 2026',
+    impact: 'Contributed to collaborative community-driven projects and technical workshops.',
+    stack: ['React', 'JavaScript', 'Tailwind CSS'],
+    description: [
+      'Actively participated in developer workshops, technical events, and collaborative learning sessions.',
+      'Contributed frontend insights and UI optimization across multiple academic and community-driven projects.',
     ],
   },
   {
-    company: 'Blockvizo',
-    role: 'Data Analyst',
+    company: 'TAGANA',
+    role: 'Frontend Developer & IOT Engineer',
     period: 'Jun 2024 - Jul 2025',
-    impact: 'Improved forecasting accuracy by 35% and cut analysis time by 40%.',
-    stack: ['Data Analysis', 'Dashboards', 'Web3 Analytics', 'Predictive Modeling'],
+    impact: 'Designed a real-time IoT-enabled flood alert dashboard, reducing emergency response delay.',
+    stack: ['React', 'IoT Sensors', 'Real-time Data', 'FastAPI', 'Supabase', 'Dashboards'],
     description: [
-      'Processed 50,000+ game hash history records to model item-drop probability behavior.',
-      'Built actionable dashboards for decentralized projects, enabling faster and more confident decisions.',
-      'Specialized in predictive airdrop and winning probability analysis across 10+ Web3 ecosystems.',
+      'Developed an emergency alert system for flood disasters using IoT sensors and a web-based dashboard to monitor and respond to emergency situations.',
+      'Implemented real-time data processing and visual monitoring, enabling faster and more effective community disaster response.',
     ],
   },
-  {
-    company: 'ASAH (led by Dicoding x Accenture)',
-    role: 'Machine Learning Cohort',
-    period: 'Aug 2025 - Jan 2026',
-    impact: 'Served as project manager during the capstone phase and improved team execution by 70%.',
-    stack: ['Project Leadership', 'ML Product', 'React', 'Stakeholder Sync'],
-    description: [
-      'Acted as project manager during capstone, leading a cross-functional team of 5 machine learning engineers and React developers.',
-      'Managed the development of a banking sales prediction portal to prioritize high-probability leads and reduce low-value outreach.',
-      'Coordinated timelines and technical workflows across functions to improve delivery speed and reliability.',
-    ],
-  },
-  {
-    company: 'Programming Lab',
-    role: 'Lab Assistant',
-    period: 'Aug 2025 - Present',
-    impact: 'Mentored 110+ junior students through practical engineering sessions.',
-    stack: ['Teaching', 'Mentorship', 'Software Fundamentals'],
-    description: [
-      'Assisted in 3+ weekly academic lab sessions for programming and software engineering courses.',
-      'Mentored around 110 junior students in problem solving, practical exercises, and core programming concepts.',
-    ],
-  },
-  {
-    company: 'PIJAK (led by Dicoding x IBM)',
-    role: 'AI Engineer Cohort',
-    period: 'Jan 2026 - Present',
-    impact: 'Selected participant in the PIJAK AI Engineer cohort.',
-    stack: ['Python', 'Generative AI', 'Deep Learning', 'AI Ethics'],
-    description: [
-      'Joined an intensive AI Engineer cohort focused on Generative AI, Deep Learning, and AI Ethics.',
-      'Developing advanced AI solutions with Python and industry-standard practices from the IBM SkillsBuild curriculum.',
-      'Building capstone-ready systems for real-world AI implementation challenges.',
-    ],
-  },
+
 ];
 
 function getStartYear(period) {

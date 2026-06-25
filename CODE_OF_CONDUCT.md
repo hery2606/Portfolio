@@ -58,7 +58,7 @@ or offline event.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported
 to the community leaders responsible for enforcement via a GitHub issue at
-https://github.com/zickrian/Portfolio-dev/issues or through the maintainer contact
+https://github.com/hery2606/Portfolio/issues or through the maintainer contact
 listed in the repository. All complaints will be reviewed and investigated promptly
 and fairly.
 

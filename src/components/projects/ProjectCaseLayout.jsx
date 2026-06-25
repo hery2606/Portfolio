@@ -20,6 +20,14 @@ const TechBadge = ({ children }) => (
   </span>
 );
 
+/**
+ * @param {object} props
+ * @param {any} props.project
+ * @param {() => void} props.onClose
+ * @param {string} [props.closeLabel]
+ * @param {React.ReactNode} [props.preFeatureSection]
+ * @param {string} props.mode
+ */
 export default function ProjectCaseLayout({
   project,
   onClose,

@@ -214,11 +214,11 @@ html.lenis body {
 /* Hero grid background scroll animation */
 @keyframes hero-grid-scroll {
   0% {
-    background-position: 0px 0px;
+    transform: translate3d(0px, 0px, 0px);
   }
 
   100% {
-    background-position: 40px 40px;
+    transform: translate3d(40px, 40px, 0px);
   }
 }
 

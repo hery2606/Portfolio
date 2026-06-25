@@ -1,22 +1,22 @@
 import { useEffect, useState, useRef, lazy, Suspense, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Preloader from '../components/Preloader';
+import Preloader from '../components/loader/Preloader';
 import Cursor from '../components/Cursor';
-import Navbar from '../components/Navbar';
-import HeroSection from '../components/HeroSection';
-import ChatLauncher from '../components/ChatLauncher';
+import Navbar from '../components/layout/Navbar';
+import HeroSection from '../components/section/HeroSection';
+import ChatLauncher from '../../src/components/chat/ChatLauncher';
 import useLenis from '../hooks/useLenis';
 import useScrollToGallery from '../hooks/useScrollToGallery';
 
 const MarqueeBanner = lazy(() => import('../components/MarqueeBanner'));
-const AboutSection = lazy(() => import('../components/AboutSection'));
-const Footer = lazy(() => import('../components/Footer'));
+const AboutSection = lazy(() => import('../components/section/AboutSection'));
+const Footer = lazy(() => import('../components/layout/Footer'));
 
-const ProjectGallery = lazy(() => import('../components/ProjectGallery'));
-const GitHubStats = lazy(() => import('../components/GitHubStats'));
-const TechStack = lazy(() => import('../components/TechStack'));
+const ProjectGallery = lazy(() => import('../components/section/ProjectGallery'));
+const GitHubStats = lazy(() => import('../components/section/GitHubStats'));
+const TechStack = lazy(() => import('../components/section/TechStack'));
 const NoiseOverlay = lazy(() => import('../components/NoiseOverlay'));
-const ProfessionalExperience = lazy(() => import('../components/ProfessionalExperience'));
+const ProfessionalExperience = lazy(() => import('../components/section/ProfessionalExperience'));
 const TechnicalCapabilities = lazy(() => import('../components/TechnicalCapabilities'));
 
 export default function Home() {

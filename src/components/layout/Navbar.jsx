@@ -1,8 +1,8 @@
 import { useState, memo, useEffect, useRef } from 'react';
-import { Gsap, GsapPresence } from '../utils/gsapAnimate';
+import { Gsap, GsapPresence } from '../../utils/gsapAnimate';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
-import Magnetic from './Magnetic';
-import { exponentialEaseOut } from '../utils/easing';
+import Magnetic from '../Magnetic';
+import { exponentialEaseOut } from '../../utils/easing';
 
 const NAV_ITEMS = [
   { label: 'About', sectionId: 'about-section' },
@@ -122,7 +122,7 @@ const Navbar = memo(function Navbar() {
         >
 
           <span className={`text-sm font-black tracking-[0.16em] md:tracking-[0.2em] uppercase transition-colors duration-300 ${isOnDarkSection ? 'text-white' : 'text-black'}`}>
-            Zickrian
+            Heri
           </span>
         </div>
       </Magnetic>

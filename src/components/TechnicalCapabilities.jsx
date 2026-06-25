@@ -3,11 +3,8 @@ import { Gsap, useGsapInView } from '../utils/gsapAnimate';
 import { Cpu, Network, Eye, MessageSquare, Infinity, BarChart2, MonitorSmartphone } from 'lucide-react';
 
 const CAPABILITIES = [
-  { title: 'Machine Learning', desc: 'Predictive modeling, regression, and algorithmic classification built for scale.', icon: BarChart2 },
-  { title: 'Deep Learning', desc: 'Neural architectures for complex pattern recognition and high-accuracy deployments.', icon: Network },
   { title: 'Computer Vision', desc: 'Image processing, real-time object detection, and robust spatial analytics.', icon: Eye },
   { title: 'NLP & GenAI', desc: 'Large language models, semantic analysis, and human-like conversational AI.', icon: MessageSquare },
-  { title: 'MLOps', desc: 'End-to-end model deployment frameworks, continuous monitoring, and automation.', icon: Infinity },
   { title: 'Data Analysis', desc: 'Advanced statistical modeling, big data wrangling, and actionable visualizations.', icon: Cpu },
   { title: 'Web Engineering', desc: 'Scalable full-stack systems with ultra-responsive, accessible interfaces.', icon: MonitorSmartphone },
 ];

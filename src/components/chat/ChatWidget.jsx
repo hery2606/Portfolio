@@ -1,14 +1,14 @@
 import { lazy, Suspense, useState, useRef, useEffect, useCallback } from "react";
 import { X, Terminal, Copy, Check } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { streamCerebras } from "../services/cerebras";
-import { resolveAction, detectOffTopic, detectLanguage } from "../services/intentRouter";
-import { sanitizeAssistantResponse } from '../services/responseSanitizer';
-import { ACTION_TO_ELEMENT } from "../data/sectionRegistry";
-import { PROJECT_META } from "../data/projectMeta";
-import { PORTFOLIO_DATA } from "../data/portfolioData";
-import { PROJECT_DETAILS_DATA } from "../data/projectDetailsData";
-import { exponentialEaseOut } from "../utils/easing";
+import { streamCerebras } from "../../services/cerebras";
+import { resolveAction, detectOffTopic, detectLanguage } from "../../services/intentRouter";
+import { sanitizeAssistantResponse } from '../../services/responseSanitizer';
+import { ACTION_TO_ELEMENT } from "../../data/sectionRegistry";
+import { PROJECT_META } from "../../data/projectMeta";
+import { PORTFOLIO_DATA } from "../../data/portfolioData";
+import { PROJECT_DETAILS_DATA } from "../../data/projectDetailsData";
+import { exponentialEaseOut } from "../../utils/easing";
 
 const ReactMarkdown = lazy(() => import('react-markdown'));
 
@@ -22,6 +22,7 @@ const COMMANDS = {
             "  help       Show this help menu",
             "  ls         List all projects",
             "  cat <id>   View project details",
+            "  vibe <mode> Change AI vibe (ramah|pro|hacker)",
             "  neofetch   System info",
             "  whoami     Current user",
             "  date       Current date & time",
@@ -29,7 +30,7 @@ const COMMANDS = {
             "  clear      Clear terminal",
             "  ──────────────────────────────",
             "",
-            "  Or just ask me anything about Zickrian!"
+            "  Or just ask me anything about HERI ARISTA!"
         ].join('\n')
     },
     ls: {
@@ -60,7 +61,7 @@ const COMMANDS = {
             }
             return [
                 "        ╭──────────────────────╮",
-                "  ⣿⣿    │  zickrian@portfolio   │",
+                "  ⣿⣿    │  HERI@portfolio   │",
                 "  ⣿⣿    ╰──────────────────────╯",
                 "  ⣿⣿    ─────────────────────────",
                 `  ⣿⣿    Name     : ${p.name}`,
@@ -175,12 +176,14 @@ const ChatWidget = ({ isOpen: controlledIsOpen, onOpenChange }) => {
     const isOpen = controlledIsOpen ?? internalIsOpen;
     const setIsOpen = onOpenChange ?? setInternalIsOpen;
     const [messages, setMessages] = useState([
-        { type: 'bot', text: "System Online. I'm Zickrian's AI Assistant. Type `help` for commands, or ask me anything!" }
+        { type: 'bot', text: "System Online. I'm HERI ARISTA's AI Assistant. Type `help` for commands, or ask me anything!" }
     ]);
     const [inputValue, setInputValue] = useState("");
     const [isTyping, setIsTyping] = useState(false);
     const [isStreaming, setIsStreaming] = useState(false);
     const [copiedIdx, setCopiedIdx] = useState(null);
+    const [vibe, setVibe] = useState("ramah");
+    const [freeMode, setFreeMode] = useState(false);
 
     // Command history
     const [commandHistory, setCommandHistory] = useState([]);
@@ -339,6 +342,28 @@ const ChatWidget = ({ isOpen: controlledIsOpen, onOpenChange }) => {
             return true;
         }
 
+        if (lower.startsWith("vibe ") || lower === "vibe") {
+            const mode = trimmed.slice(5).trim().toLowerCase();
+            let responseText = "";
+            if (mode === "ramah" || mode === "friendly") {
+                setVibe("ramah");
+                responseText = "⚙️ [SYSTEM]: Vibe switched to Ramah (Friendly) mode.";
+            } else if (mode === "pro" || mode === "professional") {
+                setVibe("pro");
+                responseText = "⚙️ [SYSTEM]: Vibe switched to Pro (Professional) mode.";
+            } else if (mode === "hacker") {
+                setVibe("hacker");
+                responseText = "⚙️ [SYSTEM]: Vibe switched to Hacker mode.";
+            } else {
+                responseText = "Usage: vibe <ramah | pro | hacker>\nExample: vibe hacker";
+            }
+            setMessages(prev => [...prev,
+                { type: 'user', text: trimmed },
+                { type: 'bot', text: responseText, isTerminal: true }
+            ]);
+            return true;
+        }
+
         if (COMMANDS[lower]) {
             const result = COMMANDS[lower].run();
             setMessages(prev => [...prev,
@@ -364,6 +389,23 @@ const ChatWidget = ({ isOpen: controlledIsOpen, onOpenChange }) => {
         savedInputRef.current = "";
         setInputValue("");
 
+        // Check for Free Mode Activation triggers
+        const normalizedMsg = userMsg.toLowerCase().trim();
+        const FREE_MODE_TRIGGERS = [
+            "mode on diaktifkan",
+            "free mode",
+            "aktifkan mode bebas",
+            "jailbreak"
+        ];
+        if (FREE_MODE_TRIGGERS.some(trigger => normalizedMsg.includes(trigger))) {
+            setFreeMode(true);
+            setMessages(prev => [...prev,
+                { type: 'user', text: userMsg },
+                { type: 'bot', text: "🔓 [SYSTEM]: Free Mode Activated! Anda bebas menanyakan apa saja di luar konteks portofolio.", isTerminal: true }
+            ]);
+            return;
+        }
+
         // Step 0: Check for local terminal commands
         if (handleLocalCommand(userMsg)) return;
 
@@ -372,7 +414,7 @@ const ChatWidget = ({ isOpen: controlledIsOpen, onOpenChange }) => {
 
         // Step 1: Pre-filter off-topic messages (no API call needed)
         const lang = detectLanguage(userMsg);
-        const offTopicMessage = detectOffTopic(userMsg, lang);
+        const offTopicMessage = freeMode ? null : detectOffTopic(userMsg, lang);
         if (offTopicMessage) {
             setMessages(prev => [...prev, { type: 'bot', text: offTopicMessage }]);
             return;
@@ -397,7 +439,7 @@ const ChatWidget = ({ isOpen: controlledIsOpen, onOpenChange }) => {
 
             // Stream and collect the full response
             let fullText = "";
-            for await (const chunk of streamCerebras(apiMessages)) {
+            for await (const chunk of streamCerebras(apiMessages, vibe, freeMode)) {
                 fullText += chunk;
             }
 
@@ -481,7 +523,7 @@ const ChatWidget = ({ isOpen: controlledIsOpen, onOpenChange }) => {
                                 <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
                                 <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
                             </div>
-                            <span className="ml-2 text-neutral-400 text-xs">zickrian_bot - -bash</span>
+                            <span className="ml-2 text-neutral-400 text-xs">HERI_bot - -bash</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <span className="text-neutral-600 text-[10px] hidden md:inline">Ctrl+K</span>
@@ -564,7 +606,7 @@ const ChatWidget = ({ isOpen: controlledIsOpen, onOpenChange }) => {
                     <div className="px-3 py-2 border-t border-neutral-800 bg-[#0c0c0c] flex gap-2 overflow-x-auto no-scrollbar">
                         <button onClick={() => quickAction("Tell me about your tech stack")} className="text-[10px] text-neutral-400 border border-neutral-700 px-2 py-0.5 rounded hover:border-lime-400 hover:text-lime-400 transition-colors whitespace-nowrap" aria-label="Ask about tech stack">./stack</button>
                         <button onClick={() => quickAction("Show me your projects")} className="text-[10px] text-neutral-400 border border-neutral-700 px-2 py-0.5 rounded hover:border-lime-400 hover:text-lime-400 transition-colors whitespace-nowrap" aria-label="Ask about projects">./projects</button>
-                        <button onClick={() => quickAction("Tell me about your experience")} className="text-[10px] text-neutral-400 border border-neutral-700 px-2 py-0.5 rounded hover:border-lime-400 hover:text-lime-400 transition-colors whitespace-nowrap" aria-label="Ask about experience">./experience</button>
+                        <button onClick={() => quickAction("beritahu aku tentang pengalaman")} className="text-[10px] text-neutral-400 border border-neutral-700 px-2 py-0.5 rounded hover:border-lime-400 hover:text-lime-400 transition-colors whitespace-nowrap" aria-label="Ask about experience">./experience</button>
                         <button onClick={() => quickAction("How can I contact you?")} className="text-[10px] text-neutral-400 border border-neutral-700 px-2 py-0.5 rounded hover:border-lime-400 hover:text-lime-400 transition-colors whitespace-nowrap" aria-label="Ask about contact">./contact</button>
                     </div>
 

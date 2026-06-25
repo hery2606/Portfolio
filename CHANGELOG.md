@@ -27,4 +27,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Example/placeholder portfolio data (`examplePortfolioData.js`) to make the project
   easy to reuse as a starter.
 
-[0.1.0]: https://github.com/zickrian/Portfolio-dev/releases/tag/v0.1.0
+[0.1.0]: https://github.com/hery2606/Portfolio/releases/tag/v0.1.0

@@ -416,18 +416,25 @@ export const useGsapScroll = ({ target } = {}) => {
   const scrollYProgress = useGsapMotionValue(0);
 
   useEffect(() => {
-    const update = () => {
-      const element = target?.current;
-      if (!element) {
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        scrollYProgress.set(max > 0 ? window.scrollY / max : 0);
-        return;
-      }
+    let ticking = false;
 
-      const rect = element.getBoundingClientRect();
-      const total = rect.height + window.innerHeight;
-      const passed = window.innerHeight - rect.top;
-      scrollYProgress.set(Math.max(0, Math.min(1, passed / total)));
+    const update = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const element = target?.current;
+          if (!element) {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            scrollYProgress.set(max > 0 ? window.scrollY / max : 0);
+          } else {
+            const rect = element.getBoundingClientRect();
+            const total = rect.height + window.innerHeight;
+            const passed = window.innerHeight - rect.top;
+            scrollYProgress.set(Math.max(0, Math.min(1, passed / total)));
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     update();

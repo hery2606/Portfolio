@@ -59,7 +59,7 @@ proxy example.
 If you discover a security vulnerability, please report it responsibly:
 
 1. **Preferred:** open a GitHub issue at
-   https://github.com/zickrian/Portfolio-dev/issues. For sensitive reports, please
+   https://github.com/hery2606/Portfolio/issues. For sensitive reports, please
    avoid including exploit details in the public issue and ask for a private contact
    channel first.
 2. **Maintainer contact:** you may also reach the maintainer through the contact

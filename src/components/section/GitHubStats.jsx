@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
-import { Gsap } from '../utils/gsapAnimate';
+import { Gsap } from '../../utils/gsapAnimate';
 import { Calendar, Code, ExternalLink, Users, Terminal } from 'lucide-react';
 
-const GITHUB_USERNAME = 'zickrian';
+const GITHUB_USERNAME = 'hery2606';
 const GITHUB_PROFILE_URL = `https://github.com/${GITHUB_USERNAME}`;
 const HEATMAP_DAYS = 364;
 const COLS = 52;

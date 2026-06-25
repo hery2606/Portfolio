@@ -1,17 +1,8 @@
 import { useRef } from "react";
-import { Gsap } from "../utils/gsapAnimate";
+import { Gsap } from "../../utils/gsapAnimate";
 
 // Simple Icons (brand icons) from react-icons
 import {
-    SiPython,
-    SiTensorflow,
-    SiPytorch,
-    SiKeras,
-    SiScikitlearn,
-    SiOpencv,
-    SiStreamlit,
-    SiNumpy,
-    SiPandas,
     SiReact,
     SiNextdotjs,
     SiTailwindcss,
@@ -24,6 +15,13 @@ import {
     SiMysql,
     SiSupabase,
     SiDocker,
+    SiFigma,
+    SiFlutter,
+    SiTypescript,
+    SiShadcnui,
+    SiPython,
+    SiLaravel,
+   
 
     SiGit,
     SiLinux,
@@ -34,32 +32,21 @@ import { Bot, BrainCircuit, Workflow, Globe, Cloud } from "lucide-react";
 
 const stackCategories = [
     {
-        title: "AI & Machine Learning",
-        description: "Intelligent systems & models",
-        skills: [
-            { name: "Python", icon: SiPython },
-            { name: "TensorFlow", icon: SiTensorflow },
-            { name: "PyTorch", icon: SiPytorch },
-            { name: "Keras", icon: SiKeras },
-            { name: "Scikit-Learn", icon: SiScikitlearn },
-            { name: "OpenCV", icon: SiOpencv },
-            { name: "Streamlit", icon: SiStreamlit },
-            { name: "Numpy", icon: SiNumpy },
-            { name: "Pandas", icon: SiPandas },
-            { name: "RAG", icon: BrainCircuit },
-            { name: "LLM", icon: Bot },
-        ]
-    },
-    {
         title: "Frontend Eng.",
         description: "Interactive web interfaces",
         skills: [
             { name: "React", icon: SiReact },
             { name: "Next.js", icon: SiNextdotjs },
             { name: "Tailwind CSS", icon: SiTailwindcss },
-            { name: "GSAP", icon: SiGreensock },
+            { name: "Flutter", icon: SiFlutter },
             { name: "JavaScript", icon: SiJavascript },
+            { name: "TypeScript", icon: SiTypescript },
             { name: "HTML/CSS", icon: SiHtml5 },
+            { name: "Shadcn UI", icon: SiShadcnui },
+            { name: "Figma", icon: SiFigma },
+            { name: "Laravel", icon: SiLaravel },
+
+            
         ]
     },
     {
@@ -68,7 +55,7 @@ const stackCategories = [
         skills: [
             { name: "FastAPI", icon: SiFastapi },
             { name: "ExpressJS", icon: SiExpress },
-            { name: "PostgreSQL", icon: SiPostgresql },
+            { name: "Python", icon: SiPython },
             { name: "MySQL", icon: SiMysql },
             { name: "Supabase", icon: SiSupabase },
             { name: "REST APIs", icon: Globe },
@@ -79,10 +66,7 @@ const stackCategories = [
         description: "Infrastructure & deployment",
         skills: [
             { name: "Docker", icon: SiDocker },
-            { name: "Microsoft Azure", icon: Cloud },
-            { name: "MLOps", icon: Workflow },
             { name: "Git", icon: SiGit },
-            { name: "Linux", icon: SiLinux },
         ]
     }
 ];

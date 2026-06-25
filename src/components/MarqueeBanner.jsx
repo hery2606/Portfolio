@@ -4,8 +4,6 @@ const skills = [
   'Machine Learning',
   'Deep Learning',
   'Computer Vision',
-  'Natural Language Processing (NLP)',
-  'Machine Learning Operations (MLOps)',
   'Data Analysis',
   'Web Development',
 ];

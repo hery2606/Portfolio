@@ -48,8 +48,8 @@ swap the assets, and ship a polished animated portfolio.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/zickrian/Portfolio-dev.git
-cd Portfolio-dev
+git clone https://github.com/hery2606/Portfolio.git
+cd Portfolio
 ```
 
 ### 2. Install dependencies
@@ -232,4 +232,4 @@ on direct load.
 
 ## License
 
-Licensed under the [MIT License](LICENSE). Copyright (c) 2026 Firdaus Zickrian.
+Licensed under the [MIT License](LICENSE). Copyright (c) 2026 Heri Arista.

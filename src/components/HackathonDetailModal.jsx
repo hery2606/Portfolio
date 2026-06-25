@@ -30,7 +30,7 @@ const highlights = [
 
 const links = {
     devfolio: 'https://devfolio.co/projects/base-realms-b63a',
-    github: 'https://github.com/zickrian/Base-Realms',
+    github: 'https://github.com/heriarista/Base-Realms',
     live: 'https://baserealms.app/',
     docs: 'https://docs.google.com/document/d/1smjwXkiQOyB1mvwBO683Me2Dcbd6aGKBdlfJGjURSjU/edit?usp=sharing',
 };
@@ -306,7 +306,7 @@ export default function HackathonDetailModal({ isOpen, onClose }) {
                                 <div className="flex items-center gap-3">
                                     <span className="text-xs font-mono text-black/40 tracking-[0.12em] md:tracking-[0.16em]">TEAM:</span>
                                     <div className="flex -space-x-2">
-                                        <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-[10px] font-mono text-white ring-2 ring-[#FAF9F6]">FZ</div>
+                                        <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-[10px] font-mono text-white ring-2 ring-[#FAF9F6]">HA</div>
                                         <div className="w-8 h-8 rounded-full bg-neutral-600 flex items-center justify-center text-[10px] font-mono text-white ring-2 ring-[#FAF9F6]">GA</div>
                                     </div>
                                 </div>

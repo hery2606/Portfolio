@@ -15,8 +15,8 @@ By participating in this project, you agree to abide by our
 ## Install
 
 ```bash
-git clone https://github.com/zickrian/Portfolio-dev.git
-cd Portfolio-dev
+git clone https://github.com/hery2606/Portfolio.git
+cd Portfolio
 npm install
 ```
 
