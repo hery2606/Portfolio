@@ -1,69 +1,56 @@
-# Customization Guide
+# Panduan Kustomisasi
 
-MotionFolio is built so you can change almost everything about the **content** and
-**look** without touching layout or animation code. This guide walks through each
-customizable area.
+MotionFolio dibangun agar Anda dapat mengubah hampir semua hal tentang **konten** dan **tampilan** tanpa menyentuh kode tata letak (layout) atau animasi. Panduan ini menjelaskan setiap area yang dapat disesuaikan.
 
-> Tip: a fully-commented starter template for the main data lives in
-> [`src/data/examplePortfolioData.js`](../src/data/examplePortfolioData.js). Copy it
-> into `src/data/portfolioData.js` for a clean slate, then fill in your details.
+> Tip: templat starter yang dilengkapi komentar lengkap untuk data utama berada di [`src/data/examplePortfolioData.js`](../src/data/examplePortfolioData.js). Salin file tersebut ke `src/data/portfolioData.js` untuk memulai dari awal, lalu isi dengan detail informasi Anda.
 
-## 1. Personal information
+## 1. Informasi Pribadi
 
-Edit [`src/data/portfolioData.js`](../src/data/portfolioData.js). The `profile`
-object holds your identity:
+Edit [`src/data/portfolioData.js`](../src/data/portfolioData.js). Objek `profile` menyimpan identitas Anda:
 
 ```js
 profile: {
-  name: "Your Name",
-  role: "Your Role / Headline",
-  bio: "One or two sentences about you.",
-  location: "City, Country",
-  email: "you@example.com",
+  name: "Nama Anda",
+  role: "Peran / Headline Anda",
+  bio: "Satu atau dua kalimat tentang diri Anda.",
+  location: "Kota, Negara",
+  email: "anda@example.com",
   socials: {
-    github: "https://github.com/your-username",
-    linkedin: "https://linkedin.com/in/your-username",
+    github: "https://github.com/username-anda",
+    linkedin: "https://linkedin.com/in/username-anda",
   },
 },
 ```
 
-This data is rendered across the site (hero, about, footer) and is also fed to the
-AI assistant, so keep it accurate.
+Data ini dirender di berbagai bagian situs (hero, about, footer) dan juga dikirimkan ke asisten AI, jadi pastikan data ini akurat.
 
-## 2. Projects
+## 2. Proyek
 
-Projects have up to three layers. Keep the **`slug`** identical across all of them so
-the gallery, the `cat <slug>` terminal command, and the AI assistant stay in sync.
+Proyek memiliki hingga tiga lapisan. Pastikan **`slug`** tetap identik di ketiganya agar galeri, perintah terminal `cat <slug>`, dan asisten AI tetap sinkron.
 
-1. **Gallery cards** — [`src/data/projectMeta.js`](../src/data/projectMeta.js):
+1. **Kartu galeri** — [`src/data/projectMeta.js`](../src/data/projectMeta.js):
    ```js
    {
      id: 1,
-     slug: "my-project",
-     title: "My Project",
-     category: "Web Application",
-     color: "bg-lime-400",   // Tailwind class for the card accent
-     img: "https://.../image.png",
+     slug: "proyek-saya",
+     title: "Proyek Saya",
+     category: "Aplikasi Web",
+     color: "bg-lime-400",   // Kelas Tailwind untuk warna aksen kartu
+     img: "https://.../gambar.png",
    }
    ```
-2. **Case study details** —
-   [`src/data/projectDetailsData.js`](../src/data/projectDetailsData.js): full info
-   (tagline, year, stack, features, impact, links) used by detail pages and the
-   `cat <slug>` command.
-3. **Custom detail component (optional)** — add a component under
-   [`src/projectDetails/`](../src/projectDetails/) and register it in
-   `src/projectDetails/projectRegistry.js` for a bespoke detail page.
+2. **Detail studi kasus** — [`src/data/projectDetailsData.js`](../src/data/projectDetailsData.js): informasi lengkap (tagline, tahun, stack, fitur, dampak, tautan) yang digunakan oleh halaman detail dan perintah `cat <slug>`.
+3. **Komponen detail kustom (opsional)** — tambahkan komponen di bawah folder [`src/projectDetails/`](../src/projectDetails/) dan daftarkan di `src/projectDetails/projectRegistry.js` untuk membuat halaman detail kustom.
 
-### Add a new project
+### Menambahkan Proyek Baru
 
-1. Add a card entry in `projectMeta.js`.
-2. Add a matching detail entry (same `slug`) in `projectDetailsData.js`.
-3. (Optional) Create + register a custom detail component.
+1. Tambahkan entri kartu di `projectMeta.js`.
+2. Tambahkan entri detail yang cocok (dengan `slug` yang sama) di `projectDetailsData.js`.
+3. (Opsional) Buat + daftarkan komponen detail kustom Anda.
 
-## 3. Skills
+## 3. Keahlian (Skills)
 
-Edit `techStack` in [`src/data/portfolioData.js`](../src/data/portfolioData.js). Each
-item has a `name` and a `category`; the AI assistant groups skills by `category`:
+Edit `techStack` di [`src/data/portfolioData.js`](../src/data/portfolioData.js). Setiap item memiliki `name` dan `category`; asisten AI mengelompokkan keahlian berdasarkan `category`:
 
 ```js
 techStack: [
@@ -72,66 +59,52 @@ techStack: [
 ],
 ```
 
-High-level specializations live in the `capabilities` array in the same file.
+Spesialisasi tingkat tinggi berada di array `capabilities` pada file yang sama.
 
-## 4. Experience
+## 4. Pengalaman
 
-Edit the `experience` array in
-[`src/data/portfolioData.js`](../src/data/portfolioData.js):
+Edit array `experience` di [`src/data/portfolioData.js`](../src/data/portfolioData.js):
 
 ```js
 experience: [
   {
-    title: "Job Title — Company",
-    period: "Jan 2024 - Present",
+    title: "Nama Peran — Nama Perusahaan",
+    period: "Jan 2024 - Sekarang",
     description: [
-      "What you did, with concrete outcomes.",
-      "Another impact bullet.",
+      "Apa yang Anda lakukan, dengan hasil konkret.",
+      "Poin dampak pekerjaan lainnya.",
     ],
   },
 ],
 ```
 
-## 5. Theme / colors
+## 5. Tema / Warna
 
-- **Fonts and Tailwind theme:** [`tailwind.config.js`](../tailwind.config.js)
-  (`fontFamily`, `extend.animation`, etc.).
-- **Global styles, CSS variables, and keyframe animations:**
-  [`src/index.css`](../src/index.css). The selection color, hero blob/orb keyframes,
-  marquee animation, and the `prefers-reduced-motion` block all live here.
-- **Per-element colors:** most accents use Tailwind utility classes directly in
-  components (e.g. the `color` field on gallery cards, or `lime-400` accents).
+- **Font dan tema Tailwind:** [`tailwind.config.js`](../tailwind.config.js) (`fontFamily`, `extend.animation`, dll.).
+- **Gaya global, variabel CSS, dan animasi keyframe:** [`src/index.css`](../src/index.css). Warna seleksi teks, keyframe blob/orb hero, animasi marquee, dan blok `prefers-reduced-motion` semuanya berada di sini.
+- **Warna per elemen:** sebagian besar aksen menggunakan kelas utilitas Tailwind langsung pada komponen (misalnya kolom `color` pada kartu galeri, atau aksen `lime-400`).
 
-The site is built around a high-contrast black/lime aesthetic — change the accent by
-swapping the Tailwind color utilities and the `::selection` color in `index.css`.
+Situs ini dibangun dengan estetika kontras tinggi hitam/lime — Anda dapat mengubah warna aksen dengan menukar kelas utilitas warna Tailwind dan warna `::selection` di `index.css`.
 
-## 6. Animations
+## 6. Animasi
 
-Reusable GSAP helpers live in
-[`src/utils/gsapAnimate.jsx`](../src/utils/gsapAnimate.jsx). Prefer these helpers over
-ad-hoc tweens so behavior stays consistent.
+Pembantu (helpers) GSAP yang dapat digunakan kembali berada di [`src/utils/gsapAnimate.jsx`](../src/utils/gsapAnimate.jsx). Utamakan pembantu ini dibanding menulis animasi ad-hoc agar perilakunya tetap konsisten.
 
-- Entrance/scroll animations use **GSAP + ScrollTrigger**.
-- Smooth scrolling uses **Lenis** (see [`src/hooks/useLenis.js`](../src/hooks/useLenis.js)).
-- **Accessibility:** motion respects `prefers-reduced-motion`. The shared helpers,
-  Lenis hook, hero parallax, and project gallery all check
-  `window.matchMedia('(prefers-reduced-motion: reduce)')` and reduce/disable motion.
-  Keep this behavior when adding new animations.
+- Animasi masuk/gulir menggunakan **GSAP + ScrollTrigger**.
+- Efek gulir halus menggunakan **Lenis** (lihat [`src/hooks/useLenis.js`](../src/hooks/useLenis.js)).
+- **Aksesibilitas:** animasi menghormati pengaturan `prefers-reduced-motion`. Pembantu bersama, hook Lenis, paralaks hero, dan galeri proyek semuanya memeriksa `window.matchMedia('(prefers-reduced-motion: reduce)')` untuk mengurangi atau menonaktifkan gerakan. Pertahankan perilaku ini saat menambahkan animasi baru.
 
-## 7. Terminal commands
+## 7. Perintah Terminal
 
-Local terminal commands are defined in the `COMMANDS` object (and the `handleCat`
-helper) in [`src/components/ChatWidget.jsx`](../src/components/ChatWidget.jsx).
-Built-in commands: `help`, `ls`, `cat <slug>`, `neofetch`, `date`, `whoami` (plus
-`history` and `clear`).
+Perintah terminal lokal didefinisikan dalam objek `COMMANDS` (dan pembantu `handleCat`) di [`src/components/chat/ChatWidget.jsx`](../src/components/chat/ChatWidget.jsx). Perintah bawaan yang tersedia: `help`, `ls`, `cat <slug>`, `neofetch`, `date`, `whoami` (ditambah `history` dan `clear`).
 
-To add a command, add a new key to `COMMANDS`:
+Untuk menambahkan perintah baru, tambahkan kunci baru ke objek `COMMANDS`:
 
 ```js
 const COMMANDS = {
   // ...
   socials: {
-    desc: "Show social links",
+    desc: "Tampilkan tautan sosial media",
     run: () => {
       const s = PORTFOLIO_DATA.profile.socials;
       return `GitHub: ${s.github}\nLinkedIn: ${s.linkedin}`;
@@ -140,42 +113,29 @@ const COMMANDS = {
 };
 ```
 
-These commands run **entirely locally** and require no API key.
+Perintah-perintah ini berjalan **sepenuhnya secara lokal** dan tidak memerlukan API key.
 
-## 8. AI assistant provider
+## 8. Penyedia Asisten AI (AI Assistant Provider)
 
-The optional AI chat is powered by Cerebras through
-[`src/services/cerebras.js`](../src/services/cerebras.js), and the assistant's
-persona/system prompt is built in
-[`src/services/aiContext.js`](../src/services/aiContext.js).
+Percakapan AI opsional didukung oleh Cerebras melalui [`src/services/cerebras.js`](../src/services/cerebras.js), dan persona/prompt sistem asisten disusun di [`src/services/aiContext.js`](../src/services/aiContext.js).
 
-- **Persona / tone / rules:** edit `generateSystemPrompt()` in `aiContext.js`.
-- **Provider / model / endpoint:** edit `cerebras.js` (model is `gpt-oss-120b`,
-  endpoint is the Cerebras chat-completions URL).
-- **API key:** set `VITE_CEREBRAS_API_KEY` in a `.env` file (a legacy
-  `REACT_APP_CEREBRAS_API_KEY` is also read).
+- **Persona / nada bicara / aturan:** edit `generateSystemPrompt()` di `aiContext.js`.
+- **Penyedia / model / endpoint:** edit `cerebras.js` (model default adalah `gpt-oss-120b`, endpoint adalah URL chat-completions Cerebras).
+- **API key:** atur `VITE_CEREBRAS_API_KEY` di file `.env` (variabel lama `REACT_APP_CEREBRAS_API_KEY` juga akan dibaca).
 
-> ⚠️ Calling the provider directly from the browser exposes your API key in the
-> client bundle. This is **demo-only**. For production, use a serverless proxy — see
-> [`docs/ai-terminal.md`](ai-terminal.md) and [`SECURITY.md`](../SECURITY.md).
+> ⚠️ Memanggil penyedia langsung dari browser akan mengekspos API key Anda ke bundle klien. Ini hanya untuk **tujuan demo**. Untuk tahap produksi, gunakan proxy serverless — lihat [`docs/ai-terminal.md`](ai-terminal.md) dan [`SECURITY.md`](../SECURITY.md).
 
-To switch providers, point `cerebras.js` at your provider's endpoint and adjust the
-request/stream parsing, or (recommended) call your own proxy endpoint instead.
+Untuk beralih ke penyedia AI lain, arahkan panggilan di `cerebras.js` ke endpoint penyedia Anda dan sesuaikan parser permintaan/stream, atau (sangat disarankan) panggil endpoint proxy Anda sendiri.
 
 ## 9. Deployment
 
-1. Build:
+1. Kompilasi (Build):
    ```bash
    npm run build
    ```
-2. Deploy the generated `build/` folder to any static host (Netlify, Vercel,
-   Cloudflare Pages, GitHub Pages, etc.).
-3. **SPA routing:** configure a rewrite/fallback so all routes serve `index.html`,
-   otherwise deep links like `/projects/<slug>` will 404 on direct load.
-   - Netlify: add a `_redirects` file with `/*  /index.html  200`.
-   - Vercel: add a rewrite of `/(.*)` → `/index.html`.
-4. Update branding before publishing: the `<title>`, meta tags, canonical URL, and
-   structured data in [`index.html`](../index.html), plus assets in `public/`
-   (`favicon.svg`, `og-icon.png`, `manifest.json`, profile image, `cv.pdf`).
-5. If you enable the AI assistant in production, set your key as a **server-side**
-   secret behind a proxy rather than a `VITE_*` variable.
+2. Deploy folder `build/` yang dihasilkan ke host statis mana pun (Netlify, Vercel, Cloudflare Pages, GitHub Pages, dll.).
+3. **Routing SPA:** konfigurasikan rewrite/fallback agar semua rute menyajikan `index.html`. Jika tidak, tautan langsung ke halaman detail proyek seperti `/projects/<slug>` akan menghasilkan error 404 saat dimuat langsung.
+   - Netlify: tambahkan file `_redirects` berisi `/*  /index.html  200`.
+   - Vercel: tambahkan rewrite dari `/(.*)` → `/index.html`.
+4. Perbarui branding sebelum merilis: tag `<title>`, tag meta, URL canonical, dan data terstruktur di [`index.html`](../index.html), serta aset di `public/` (`favicon.svg`, `og-icon.png`, `manifest.json`, gambar profil, dan `cv.pdf`).
+5. Jika Anda mengaktifkan asisten AI di tahap produksi, atur API key Anda sebagai rahasia **sisi server** di belakang proxy, alih-alih menggunakan variabel `VITE_*`.

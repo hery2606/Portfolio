@@ -1,76 +1,59 @@
-# Security Policy
+# Kebijakan Keamanan
 
-## Supported versions
+## Versi yang didukung
 
-MotionFolio is an early-stage starter project. Security fixes are applied to the
-latest `main` branch and the most recent release.
+MotionFolio adalah proyek starter tahap awal. Perbaikan keamanan diterapkan pada cabang `main` terbaru dan rilis terbaru.
 
-| Version | Supported |
+| Versi   | Didukung  |
 | ------- | --------- |
 | 0.1.x   | ✅        |
 
-## Frontend API keys are exposed to the browser
+## API Key Frontend Terekspos ke Browser
 
-This is the most important security note for this project.
+Ini adalah catatan keamanan paling penting untuk proyek ini.
 
-MotionFolio is a **client-side single-page app** built with Vite. Vite inlines every
-environment variable prefixed with `VITE_` (and, in this project, `REACT_APP_`) into
-the **production JavaScript bundle**. That means:
+MotionFolio adalah **aplikasi single-page client-side** yang dibangun dengan Vite. Vite menyisipkan (inline) setiap variabel lingkungan yang berawalan `VITE_` (dan, dalam proyek ini, `REACT_APP_`) ke dalam **bundle JavaScript produksi**. Artinya:
 
-- **Any key in your `.env` ships to the browser** and is readable by anyone who opens
-  your deployed site (via DevTools or by reading the bundled JS).
-- The direct Cerebras call in `src/services/cerebras.js` is **demo-only**. It is fine
-  for local development and quick demos, but **not safe for production** with a
-  private/billable API key.
+- **Setiap kunci di file `.env` Anda akan dikirim ke browser** dan dapat dibaca oleh siapa saja yang membuka situs web Anda (melalui DevTools atau dengan membaca kode JS yang di-bundle).
+- Panggilan langsung Cerebras di `src/services/cerebras.js` hanya untuk **tujuan demo**. Ini aman untuk pengembangan lokal dan demo cepat, tetapi **tidak aman untuk produksi** dengan API key pribadi/berbayar Anda.
 
-### Do not expose API keys in frontend code
+### Jangan Mengekspos API Key di Kode Frontend
 
-- Never commit real API keys to the repository.
-- Never rely on `VITE_*` / `REACT_APP_*` variables to "hide" a secret — they are not
-  secret on the client.
-- Keep `.env` files out of version control (they are git-ignored by default).
+- Jangan pernah mengirimkan (commit) API key asli ke repositori Git Anda.
+- Jangan pernah mengandalkan variabel `VITE_*` / `REACT_APP_*` untuk "menyembunyikan" rahasia — variabel tersebut tidak rahasia di sisi klien.
+- Pastikan file `.env` tidak masuk ke version control (file ini sudah di-git-ignore secara default).
 
-### Use a server-side / serverless proxy for AI provider keys
+### Gunakan Proxy Server-Side / Serverless untuk API Key AI Provider
 
-For production, move the AI provider call behind a backend you control so the API key
-stays a **server-side secret**:
+Untuk tahap produksi, pindahkan panggilan AI provider ke belakang backend yang Anda kontrol agar API key tetap menjadi **rahasia di sisi server (server-side secret)**:
 
 ```text
-Browser (frontend)  ->  Your serverless API route  ->  AI provider (Cerebras, etc.)
-                        (holds the secret key)
+Browser (frontend)  ->  Rute API Serverless Anda  ->  AI Provider (Cerebras, dll)
+                        (menyimpan secret key)
 ```
 
-The serverless function reads the key from a server-only environment variable (no
-`VITE_`/`REACT_APP_` prefix), calls the provider, and streams the response back to the
-browser. The frontend then calls your own endpoint instead of the provider directly.
+Fungsi serverless akan membaca kunci dari variabel lingkungan server-only (tanpa awalan `VITE_`/`REACT_APP_`), memanggil penyedia AI, dan mengalirkan (stream) respons kembali ke browser. Frontend kemudian memanggil endpoint Anda sendiri alih-alih memanggil penyedia secara langsung.
 
-See [docs/ai-terminal.md](docs/ai-terminal.md) for a recommended architecture and a
-proxy example.
+Lihat [docs/ai-terminal.md](docs/ai-terminal.md) untuk arsitektur yang direkomendasikan dan contoh proxy.
 
-### Other hardening tips
+### Tips Pengerasan (Hardening) Lainnya
 
-- Add rate limiting and basic abuse protection to any proxy endpoint you deploy.
-- Restrict allowed origins (CORS) on your proxy to your own domain.
-- Rotate any key that may have been committed or shipped in a client bundle.
-- Set spending limits / usage caps with your AI provider.
+- Tambahkan pembatasan tingkat permintaan (rate limiting) dan perlindungan penyalahgunaan dasar pada setiap endpoint proxy yang Anda deploy.
+- Batasi asal yang diizinkan (CORS) pada proxy Anda hanya ke domain Anda sendiri.
+- Lakukan rotasi (ganti) pada kunci apa pun yang mungkin tidak sengaja ter-commit atau dikirimkan dalam bundle klien.
+- Tetapkan batas pengeluaran / batas penggunaan di akun penyedia AI Anda.
 
-## Reporting a vulnerability
+## Melaporkan Kerentanan
 
-If you discover a security vulnerability, please report it responsibly:
+Jika Anda menemukan kerentanan keamanan, mohon laporkan secara bertanggung jawab:
 
-1. **Preferred:** open a GitHub issue at
-   https://github.com/hery2606/Portfolio/issues. For sensitive reports, please
-   avoid including exploit details in the public issue and ask for a private contact
-   channel first.
-2. **Maintainer contact:** you may also reach the maintainer through the contact
-   details listed on the live site / repository profile.
+1. **Pilihan Utama:** buka GitHub issue di https://github.com/hery2606/Portfolio/issues. Untuk laporan sensitif, mohon hindari menyertakan detail eksploitasi di issue publik dan mintalah saluran kontak pribadi terlebih dahulu.
+2. **Kontak Maintainer:** Anda juga dapat menghubungi maintainer melalui detail kontak yang tercantum pada situs web live / profil repositori.
 
-Please include:
+Mohon sertakan:
 
-- A clear description of the issue and its impact.
-- Steps to reproduce (proof of concept if possible).
-- Affected version/commit.
+- Deskripsi yang jelas tentang masalah dan dampaknya.
+- Langkah-langkah untuk mereproduksi (bukti konsep / proof of concept jika memungkinkan).
+- Versi/commit yang terdampak.
 
-We will acknowledge your report, investigate, and aim to provide a fix or mitigation
-as quickly as is reasonable for a community project. Please give us reasonable time to
-address the issue before any public disclosure.
+Kami akan mengonfirmasi laporan Anda, menyelidiki, dan berupaya memberikan perbaikan atau mitigasi secepat mungkin yang wajar untuk proyek komunitas. Mohon berikan kami waktu yang cukup untuk mengatasi masalah tersebut sebelum melakukan pengungkapan publik.

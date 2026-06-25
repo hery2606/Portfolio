@@ -1,63 +1,48 @@
-# Roadmap
+# Peta Jalan (Roadmap)
 
-This is a living list of planned improvements for MotionFolio. It is meant to double
-as a backlog of ready-to-pick GitHub issues. Contributions are welcome — see
-[`CONTRIBUTING.md`](../CONTRIBUTING.md). Each item below can be opened as an issue
-using the [feature request template](../.github/ISSUE_TEMPLATE/feature_request.md).
+Ini adalah daftar rencana peningkatan untuk MotionFolio yang diperbarui secara dinamis. Daftar ini juga berfungsi sebagai backlog untuk GitHub issues yang siap dikerjakan. Kontribusi sangat diharapkan — lihat [`CONTRIBUTING.md`](../CONTRIBUTING.md). Setiap item di bawah ini dapat dibuka sebagai issue menggunakan [templat permintaan fitur](../.github/ISSUE_TEMPLATE/feature_request.md).
 
-## Planned
+## Rencana (Planned)
 
-### Add template mode with sample data
-Add a toggle (e.g. an env flag or a single import switch) so the app can render with
-the generic [`examplePortfolioData.js`](../src/data/examplePortfolioData.js) instead
-of real content. This makes it easy to preview the starter and to develop without
-exposing personal data.
-- Acceptance: one switch flips the live site between real and example data.
+### Menambahkan mode templat dengan data contoh (sample data)
+Menambahkan sakelar (seperti flag env atau switch import) sehingga aplikasi dapat dirender menggunakan data generik [`examplePortfolioData.js`](../src/data/examplePortfolioData.js) alih-alih konten asli Anda. Ini memudahkan pratinjau starter dan pengembangan tanpa mengekspos data pribadi.
+- Kriteria Penerimaan: Satu sakelar dapat mengubah situs web live antara data asli dan data contoh.
 
-### Add multiple theme presets
-Provide a few ready-made color/font presets (e.g. "lime/black", "midnight",
-"paper") selectable from one place (Tailwind config + CSS variables in
-`src/index.css`).
-- Acceptance: switching a single preset value restyles the whole site.
+### Menambahkan beberapa preset tema warna
+Menyediakan beberapa pilihan warna/font siap pakai (misalnya "lime/black", "midnight", "paper") yang dapat dipilih dari satu tempat (konfigurasi Tailwind + variabel CSS di `src/index.css`).
+- Kriteria Penerimaan: Mengubah satu nilai preset akan mengatur ulang gaya seluruh situs.
 
-### Improve `prefers-reduced-motion` support
-Audit every animation (GSAP helpers, hero, marquee, gallery, cursor, preloader) and
-ensure each one has a reduced-motion path. Document the pattern.
-- Acceptance: with reduced motion enabled, no large/looping motion remains.
+### Meningkatkan dukungan `prefers-reduced-motion`
+Melakukan audit terhadap setiap animasi (pembantu GSAP, hero, marquee, galeri, kursor, preloader) dan memastikan masing-masing memiliki jalur alternatif untuk reduced-motion. Dokumentasikan polanya.
+- Kriteria Penerimaan: Ketika reduced-motion aktif di sistem operasi, tidak ada animasi besar/berulang yang tersisa.
 
-### Extract reusable animation hooks
-Refactor common GSAP/ScrollTrigger patterns from components into composable hooks
-(e.g. `useReveal`, `useParallax`, `usePinnedSection`) layered on
-`src/utils/gsapAnimate.jsx`.
-- Acceptance: at least two sections adopt the shared hooks with no behavior change.
+### Mengekstrak hooks animasi yang dapat digunakan kembali
+Melakukan refaktor pada pola GSAP/ScrollTrigger umum dari komponen menjadi hooks yang dapat disusun kembali (seperti `useReveal`, `useParallax`, `usePinnedSection`) berbasis `src/utils/gsapAnimate.jsx`.
+- Kriteria Penerimaan: Minimal dua bagian mengadopsi hooks bersama tanpa perubahan perilaku tampilan.
 
-### Add more portfolio section examples
-Ship optional, ready-to-use sections (e.g. testimonials, blog/writing list, services,
-pricing) that plug into the section registry.
-- Acceptance: a new section can be enabled by adding data + a registry entry.
+### Menambahkan lebih banyak contoh bagian (section) portofolio
+Menyediakan bagian opsional yang siap pakai (seperti testimoni, daftar blog/tulisan, layanan, harga) yang terhubung ke registri bagian.
+- Kriteria Penerimaan: Bagian baru dapat diaktifkan hanya dengan menambahkan data + entri registri.
 
-### Add serverless proxy example for the AI terminal
-Provide a deployable proxy (Vercel/Netlify function) so the AI key stays server-side,
-wired to the frontend. See the design in [`docs/ai-terminal.md`](ai-terminal.md).
-- Acceptance: a working example where the key is never in the client bundle.
+### Menambahkan contoh proxy serverless untuk terminal AI
+Menyediakan proxy yang siap dideploy (fungsi Vercel/Netlify) sehingga kunci API AI tetap berada di sisi server dan terhubung ke frontend. Lihat desain di [`docs/ai-terminal.md`](ai-terminal.md).
+- Kriteria Penerimaan: Contoh kerja di mana kunci API tidak pernah masuk ke bundle klien.
 
-### Add accessibility audit checklist
-Create a checklist (and ideally automated checks) covering color contrast, focus
-states, keyboard navigation, semantic landmarks, alt text, and reduced motion.
-- Acceptance: a documented checklist plus fixes for any issues it surfaces.
+### Menambahkan daftar periksa audit aksesibilitas
+Membuat daftar periksa (dan idealnya pemeriksaan otomatis) yang mencakup kontras warna, status fokus, navigasi keyboard, landmark semantik, teks alternatif (alt text), dan pengurangan gerakan.
+- Kriteria Penerimaan: Daftar periksa yang terdokumentasi lengkap serta perbaikan untuk masalah apa pun yang ditemukan.
 
-### Add performance optimization guide
-Document and improve image handling, code-splitting/lazy-loading, font loading, and
-animation cost; add Lighthouse targets.
-- Acceptance: a guide in `docs/` plus measurable build/runtime improvements.
+### Menambahkan panduan optimalisasi performa
+Mendokumentasikan dan meningkatkan penanganan gambar, pemisahan kode/lazy-loading, pemuatan font, dan biaya animasi; menambahkan target Lighthouse.
+- Kriteria Penerimaan: Panduan di folder `docs/` serta peningkatan waktu build/runtime yang terukur.
 
-## Ideas / under consideration
+## Ide / Sedang Dipertimbangkan
 
-- TypeScript migration or JSDoc-based type coverage.
-- A small CLI or script to scaffold a new project entry.
-- i18n / multi-language content support.
-- Unit/visual tests for critical animation and routing behavior.
+- Migrasi ke TypeScript atau cakupan tipe berbasis JSDoc.
+- CLI kecil atau skrip untuk membuat entri proyek baru secara otomatis.
+- Dukungan i18n / konten multi-bahasa.
+- Unit/visual tests untuk animasi kritis dan perilaku routing.
 
-## Done
+## Selesai (Done)
 
-- ✅ Initial open-source release (`0.1.0`) — see [`CHANGELOG.md`](../CHANGELOG.md).
+- ✅ Rilis awal open-source (`0.1.0`) — lihat [`CHANGELOG.md`](../CHANGELOG.md).

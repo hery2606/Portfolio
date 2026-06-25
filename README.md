@@ -1,32 +1,24 @@
 # MotionFolio
 
-> Open-source animated portfolio starter for modern developers.
+> Starter portofolio teranimasi open-source untuk developer modern.
 
-MotionFolio is an open-source animated portfolio starter built with React, Vite,
-Tailwind CSS, GSAP, Lenis, and an optional AI-powered terminal assistant. It helps
-developers build creative portfolio websites faster using reusable motion patterns,
-centralized content data, project case studies, smooth scrolling, and customizable
-sections.
+MotionFolio adalah starter portofolio teranimasi open-source yang dibangun dengan React, Vite, Tailwind CSS, GSAP, Lenis, dan asisten terminal opsional bertenaga AI. Ini membantu pengembang membangun situs web portofolio kreatif lebih cepat menggunakan pola gerakan (motion) yang dapat digunakan kembali, data konten terpusat, halaman studi kasus proyek, efek scroll halus (smooth scrolling), dan bagian (section) yang dapat disesuaikan.
 
-Instead of starting from a blank page, you fork the project, edit a few data files,
-swap the assets, and ship a polished animated portfolio.
+Alih-alih mulai dari halaman kosong, Anda dapat melakukan fork proyek ini, mengedit beberapa file data, menukar aset gambar, dan meluncurkan portofolio teranimasi yang rapi.
 
-## Features
+## Fitur
 
-- **React + Vite** for a fast dev server and optimized production builds.
-- **Tailwind CSS** utility-first styling with a typography plugin.
-- **GSAP animations** for entrance, scroll, and micro-interactions.
-- **ScrollTrigger** for scroll-linked timelines and pinned sections.
-- **Lenis smooth scrolling** integrated with GSAP/ScrollTrigger.
-- **Reusable animation patterns** centralized in `src/utils/gsapAnimate.jsx`.
-- **Centralized portfolio data** so content edits never touch layout code.
-- **Project case study pages** with gallery cards, detail routes, and modals.
-- **Optional AI-powered terminal assistant** with local commands plus an optional
-  LLM-backed chat.
-- **Responsive design** across mobile, tablet, and desktop.
-- **Accessibility-friendly motion**: respects the OS `prefers-reduced-motion`
-  setting in CSS and JS (Lenis, hero parallax, gallery, and shared GSAP helpers all
-  reduce or disable motion when requested).
+- **React + Vite** untuk server pengembangan yang sangat cepat dan build produksi yang dioptimalkan.
+- **Tailwind CSS** penataan berbasis utilitas (utility-first) dengan plugin tipografi.
+- **Animasi GSAP** untuk transisi masuk (entrance), gerakan gulir (scroll), dan mikro-interaksi.
+- **ScrollTrigger** untuk linimasa berbasis gulir dan elemen yang dipasang tetap (pinned sections).
+- **Lenis smooth scrolling** terintegrasi secara mulus dengan GSAP/ScrollTrigger.
+- **Pola animasi siap pakai** terpusat di `src/utils/gsapAnimate.jsx`.
+- **Data portofolio terpusat** sehingga pembaruan konten tidak pernah menyentuh kode tata letak.
+- **Halaman studi kasus proyek** dengan kartu galeri, rute detail, dan tampilan modal.
+- **Asisten terminal AI (opsional)** dengan perintah lokal (`help`, `ls`, `cat <slug>`, dll.) serta obrolan bertenaga LLM opsional.
+- **Desain responsif** yang optimal di perangkat seluler (mobile), tablet, dan desktop.
+- **Animasi ramah aksesibilitas**: menghormati pengaturan preferensi pengurangan gerakan OS (`prefers-reduced-motion`) pada CSS dan JS (Lenis, efek paralaks hero, galeri, dan pembantu GSAP secara otomatis mengurangi atau menonaktifkan gerakan saat diminta).
 
 ## Tech Stack
 
@@ -38,198 +30,175 @@ swap the assets, and ship a polished animated portfolio.
 - React Router
 - react-markdown, lucide-react, react-icons
 
-## Prerequisites
+## Prasyarat
 
-- Node.js 22 or newer
-- npm 10 or newer
+- Node.js 22 atau yang lebih baru
+- npm 10 atau yang lebih baru
 
-## Installation
+## Instalasi
 
-### 1. Clone the repository
+### 1. Clone repositori
 
 ```bash
 git clone https://github.com/hery2606/Portfolio.git
 cd Portfolio
 ```
 
-### 2. Install dependencies
+### 2. Instal dependensi
 
 ```bash
 npm install
 ```
 
-### 3. Start the development server
+### 3. Jalankan server pengembangan
 
 ```bash
 npm run dev
 ```
 
-Open the URL Vite prints (typically `http://localhost:5173`).
+Buka URL yang ditampilkan oleh Vite (biasanya `http://localhost:5173`).
 
-### 4. Build for production
+### 4. Build untuk produksi
 
 ```bash
 npm run build
 ```
 
-The output is written to the `build/` folder.
+Hasil build akan ditulis ke folder `build/`.
 
-### 5. Preview the production build
+### 5. Preview hasil build produksi
 
 ```bash
 npm run preview
 ```
 
-### 6. Pre-deploy check
+### 6. Pemeriksaan sebelum deployment
 
 ```bash
 npm run check
 ```
 
-This runs the production build and audits production dependencies.
+Ini akan menjalankan build produksi dan mengaudit dependensi produksi.
 
-### Available scripts
+### Script yang Tersedia
 
-- `npm run dev` — start the development server.
-- `npm run start` — alias for `npm run dev`.
-- `npm run build` — create a production build in `build/`.
-- `npm run preview` — preview the local production build.
-- `npm run check` — build + audit production dependencies.
+- `npm run dev` — menjalankan server pengembangan.
+- `npm run start` — alias untuk `npm run dev`.
+- `npm run build` — membuat build produksi di folder `build/`.
+- `npm run preview` — melihat pratinjau hasil build lokal.
+- `npm run check` — melakukan build sekaligus mengaudit dependensi produksi.
 
-## Environment Variables
+## Variabel Lingkungan (Environment Variables)
 
-The AI terminal assistant is **optional**. Local terminal commands (`help`, `ls`,
-`cat <slug>`, etc.) always work without any keys. The AI chat only activates when an
-API key is present.
+Asisten terminal AI bersifat **opsional**. Perintah terminal lokal (`help`, `ls`, `cat <slug>`, `neofetch`, `date`, `whoami`, dll.) akan selalu berfungsi tanpa memerlukan API key apa pun. Obrolan AI hanya aktif jika API key tersedia.
 
-Create a `.env` file in the project root:
+Buat file `.env` di root proyek:
 
 ```env
-VITE_CEREBRAS_API_KEY=your_key_here
+VITE_CEREBRAS_API_KEY=kunci_api_anda_di_sini
 ```
 
-A legacy prefix is also read for backward compatibility:
+Sistem juga mendukung prefix lama untuk kompatibilitas ke belakang:
 
 ```env
-REACT_APP_CEREBRAS_API_KEY=your_key_here
+REACT_APP_CEREBRAS_API_KEY=kunci_api_anda_di_sini
 ```
 
-> ⚠️ **Security warning — read this before deploying.**
-> Vite inlines every `VITE_*` (and here, `REACT_APP_*`) variable into the **client
-> bundle**. Any key you put in `.env` ships to the browser and is publicly readable
-> by anyone who opens your site. The direct-from-frontend call in
-> `src/services/cerebras.js` is **demo-only**. For production, route AI requests
-> through a server-side / serverless proxy that holds the key as a server secret.
-> See [`docs/ai-terminal.md`](docs/ai-terminal.md) and [`SECURITY.md`](SECURITY.md).
+> ⚠️ **Peringatan Keamanan — baca ini sebelum melakukan deployment.**
+> Vite menyisipkan setiap variabel lingkungan berawalan `VITE_*` (dan di sini, `REACT_APP_*`) ke dalam **bundle sisi klien (client bundle)**. Kunci apa pun yang Anda taruh di `.env` akan ikut terkirim ke browser dan dapat dibaca oleh publik. Panggilan API langsung dari frontend di `src/services/cerebras.js` hanya digunakan untuk **tujuan demo**. Untuk produksi, rute panggilan AI harus melalui server-side / serverless proxy yang menyimpan kunci tersebut dengan aman sebagai rahasia server (server secret).
+> Lihat [`docs/ai-terminal.md`](docs/ai-terminal.md) dan [`SECURITY.md`](SECURITY.md).
 
-Notes:
+Catatan:
+- Tanpa API key → perintah lokal tetap berjalan; obrolan AI hanya akan dinonaktifkan.
+- Respons obrolan AI akan aktif segera setelah salah satu API key di atas terdeteksi.
 
-- No API key → local commands still work; AI responses are simply disabled.
-- AI responses activate only when one of the keys above is available.
+## Panduan Kustomisasi
 
-## Customization Guide
+Anda dapat mengubah sebagian besar konten portofolio tanpa menyentuh tata letak atau kode animasi. Panduan lengkap tersedia di [`docs/customization.md`](docs/customization.md). Referensi cepat:
 
-You can change most content without touching layout or animation code. Full details
-are in [`docs/customization.md`](docs/customization.md). Quick reference:
+- **Profil, pengalaman, tech stack, proyek, pencapaian, kapabilitas:** `src/data/portfolioData.js`
+- **Contoh/placeholder konten portofolio** untuk disalin: `src/data/examplePortfolioData.js`
+- **Metadata kartu galeri proyek:** `src/data/projectMeta.js`
+- **Detail studi kasus proyek (digunakan oleh `cat <slug>` dan halaman detail):** `src/data/projectDetailsData.js`
+- **Bagian yang dapat dinavigasi (navbar + chat):** `src/data/sectionRegistry.js`
+- **Rute detail kustom per proyek:** `src/projectDetails/projectRegistry.js`
+- **Tema/warna dan font:** `tailwind.config.js` dan `src/index.css`
+- **Animasi yang dapat digunakan kembali:** `src/utils/gsapAnimate.jsx`
+- **Perintah terminal:** `COMMANDS` di `src/components/chat/ChatWidget.jsx`
+- **Perilaku/kepribadian asisten AI:** `src/services/aiContext.js` dan `src/services/cerebras.js`
 
-- **Profile, experience, tech stack, projects, achievements, capabilities:**
-  `src/data/portfolioData.js`
-- **Generic placeholder/example content** to copy from:
-  `src/data/examplePortfolioData.js`
-- **Project gallery card metadata:** `src/data/projectMeta.js`
-- **Project case study details (used by `cat <slug>` and detail pages):**
-  `src/data/projectDetailsData.js`
-- **Navigable sections (navbar + chat):** `src/data/sectionRegistry.js`
-- **Custom per-project detail routes:** `src/projectDetails/projectRegistry.js`
-- **Theme/colors and fonts:** `tailwind.config.js` and `src/index.css`
-- **Reusable animations:** `src/utils/gsapAnimate.jsx`
-- **Terminal commands:** `COMMANDS` in `src/components/ChatWidget.jsx`
-- **AI assistant behavior/persona:** `src/services/aiContext.js` and
-  `src/services/cerebras.js`
+### Menambahkan Proyek Baru
 
-### Add a new project
+1. Tambahkan metadata kartu di `src/data/projectMeta.js`.
+2. Tambahkan data detail yang cocok dengan `slug` yang sama di `src/data/projectDetailsData.js`.
+3. (Opsional) Buat komponen detail kustom di folder `src/projectDetails/`.
+4. Daftarkan komponen tersebut di `src/projectDetails/projectRegistry.js`.
 
-1. Add card metadata in `src/data/projectMeta.js`.
-2. Add matching detail data with the same `slug` in `src/data/projectDetailsData.js`.
-3. (Optional) Create a custom detail component in `src/projectDetails/`.
-4. Register that component in `src/projectDetails/projectRegistry.js`.
+### Menambahkan Bagian Baru (New Section)
 
-### Add a new section
+1. Tambahkan bagian tersebut ke dalam `src/data/sectionRegistry.js`.
+2. Pastikan komponen yang dirender memiliki `elementId` yang sesuai.
+3. Widget obrolan terminal dan rute intent AI akan mendeteksinya secara otomatis.
 
-1. Add the section to `src/data/sectionRegistry.js`.
-2. Ensure the rendered component has a matching `elementId`.
-3. The chat widget and intent router pick it up automatically.
-
-## Project Structure
+## Struktur Proyek
 
 ```text
 .
 ├── index.html
-├── public/                 # static assets (images, og image, cv, favicon)
-├── docs/                   # customization, AI terminal, and roadmap docs
+├── public/                 # aset statis (gambar, favicon, manifest, cv.pdf)
+├── docs/                   # dokumen kustomisasi, terminal AI, dan roadmap
 ├── src/
-│   ├── components/         # UI sections and widgets
-│   │   └── projects/       # project gallery + detail modal
-│   ├── data/               # centralized content + example data
-│   ├── hooks/              # custom hooks (e.g., Lenis)
-│   ├── pages/              # route-level pages (Home)
-│   ├── projectDetails/     # custom per-project detail components + registry
-│   ├── services/           # AI context, Cerebras client, intent router
-│   └── utils/              # reusable animation + easing helpers
+│   ├── components/         # komponen bagian UI dan widget
+│   │   └── projects/       # galeri proyek + modal detail
+│   ├── data/               # data konten terpusat + data contoh
+│   ├── hooks/              # custom React hooks (misalnya, Lenis)
+│   ├── pages/              # halaman tingkat rute (Home)
+│   ├── projectDetails/     # komponen studi kasus kustom + registri
+│   ├── services/           # konteks AI, klien Cerebras, router intent
+│   └── utils/              # pembantu animasi bersama & rumus easing
 ├── tailwind.config.js
 ├── vite.config.js
-└── build/                  # production output (generated)
+└── build/                  # output produksi (dihasilkan setelah build)
 ```
 
-## Roadmap
+## Peta Jalan (Roadmap)
 
-See [`docs/roadmap.md`](docs/roadmap.md) for the full list. Highlights:
+Lihat [`docs/roadmap.md`](docs/roadmap.md) untuk daftar lengkapnya. Sorotan utama:
 
-- Add a template mode with sample data toggle.
-- Add multiple theme presets.
-- Improve `prefers-reduced-motion` coverage.
-- Extract reusable animation hooks.
-- Add more portfolio section examples.
-- Add a serverless proxy example for the AI terminal.
-- Add an accessibility audit checklist.
-- Add a performance optimization guide.
+- Menambahkan mode templat dengan tombol pilihan data contoh.
+- Menambahkan beberapa preset tema warna.
+- Meningkatkan cakupan deteksi `prefers-reduced-motion`.
+- Mengekstrak hooks animasi yang dapat digunakan kembali.
+- Menambahkan lebih banyak contoh bagian (section) portofolio.
+- Menyediakan contoh serverless proxy untuk terminal AI.
+- Menyertakan daftar periksa audit aksesibilitas.
+- Menyertakan panduan optimalisasi performa.
 
-## Contributing
+## Kontribusi
 
-Contributions are welcome! Please read [`CONTRIBUTING.md`](CONTRIBUTING.md) for setup,
-branch naming, coding style, and pull request guidelines, and follow our
-[`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
+Kontribusi sangat kami harapkan! Silakan baca [`CONTRIBUTING.md`](CONTRIBUTING.md) untuk detail penyiapan, gaya penulisan kode, penamaan branch, dan panduan pull request, serta ikuti [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) kami.
 
-Good first contributions:
+Kontribusi pertama yang baik:
+- Menambahkan preset tema baru.
+- Menambahkan pola animasi baru yang reusable.
+- Meningkatkan aksesibilitas atau cakupan `prefers-reduced-motion`.
+- Menyertakan contoh serverless proxy untuk asisten AI.
 
-- Add a new theme preset.
-- Add a new reusable animation pattern.
-- Improve accessibility or `prefers-reduced-motion` coverage.
-- Add a serverless proxy example for the AI assistant.
+## Keamanan (Security)
 
-## Security
+Variabel lingkungan `VITE_*` / `REACT_APP_*` **terekspos secara bebas ke browser**. Jangan pernah menaruh API key rahasia/berbayar secara langsung di kode frontend untuk tahap produksi — selalu gunakan proxy server-side atau serverless. Untuk melaporkan kerentanan atau panduan lengkapnya, baca [`SECURITY.md`](SECURITY.md).
 
-`VITE_*` / `REACT_APP_*` environment variables are **exposed to the browser**. Never
-put private API keys directly in frontend code for production — use a server-side or
-serverless proxy. To report a vulnerability or for full guidance, see
-[`SECURITY.md`](SECURITY.md).
+## Deployment
 
-## Deploy
+Deploy folder `build/` hasil kompilasi ke layanan hosting statis apa pun (Vercel, Netlify, Cloudflare Pages, GitHub Pages, dll.). Karena aplikasi ini adalah Single Page Application (SPA), pastikan untuk mengonfigurasi aturan penulisan ulang/fallback rute agar mengarah ke `index.html`. Jika tidak, tautan langsung ke halaman studi kasus akan menghasilkan halaman error 404 saat dimuat langsung.
 
-Deploy the generated `build/` folder to any static host (Netlify, Vercel, Cloudflare
-Pages, GitHub Pages, etc.). Because this is an SPA, configure a rewrite/fallback so all
-routes serve `index.html`; otherwise deep links such as project detail routes will 404
-on direct load.
+## Pemecahan Masalah (Troubleshooting)
 
-## Troubleshooting
+- **AI tidak merespons:** periksa `.env`, pastikan API key sudah diatur dengan benar, kemudian restart server pengembangan Anda.
+- **Perintah terminal lokal berjalan tetapi AI gagal:** biasanya disebabkan oleh API key yang salah/tidak valid, batas penggunaan (rate limit), atau gangguan koneksi jaringan.
+- **Hasil build tidak ditemukan:** hasil build tersimpan di folder `build/`, bukan `dist/`.
+- **Statistik GitHub kosong:** biasanya karena batas tingkat permintaan API publik GitHub terlampaui.
 
-- **AI not responding:** check `.env`, confirm the API key is set, then restart the dev
-  server.
-- **Commands work but AI fails:** usually a missing/invalid key, rate limit, or network
-  issue.
-- **Build not where expected:** output is in `build/`, not `dist/`.
-- **GitHub stats empty:** likely public API rate limiting.
+## Lisensi
 
-## License
-
-Licensed under the [MIT License](LICENSE). Copyright (c) 2026 Heri Arista.
+Dilisensikan di bawah [Lisensi MIT](LICENSE). Hak Cipta (c) 2026 Heri Arista.

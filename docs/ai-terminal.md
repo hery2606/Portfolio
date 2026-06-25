@@ -1,66 +1,48 @@
-# AI Terminal Assistant
+# Asisten Terminal AI
 
-MotionFolio ships with an **optional** terminal-style assistant (see
-[`src/components/ChatWidget.jsx`](../src/components/ChatWidget.jsx)). It has two
-layers:
+MotionFolio dilengkapi dengan asisten gaya terminal yang bersifat **opsional** (lihat [`src/components/chat/ChatWidget.jsx`](../src/components/chat/ChatWidget.jsx)). Terdapat dua lapisan fungsionalitas:
 
-1. **Local commands** — `help`, `ls`, `cat <slug>`, `neofetch`, `date`, `whoami`
-   (plus `history` and `clear`). These run entirely in the browser, use your
-   portfolio data, and **require no API key**.
-2. **AI chat (optional)** — natural-language answers about you, powered by an LLM.
-   This only activates when an API key is present.
+1. **Perintah lokal** — `help`, `ls`, `cat <slug>`, `neofetch`, `date`, `whoami` (ditambah `history` dan `clear`). Perintah-perintah ini berjalan sepenuhnya di browser, menggunakan data portofolio Anda, dan **tidak memerlukan API key**.
+2. **Obrolan AI (opsional)** — jawaban bahasa alami tentang diri Anda yang didukung oleh LLM. Fitur ini hanya aktif jika API key tersedia.
 
-If no key is configured, the local commands still work and AI replies are simply
-disabled.
+Jika API key tidak dikonfigurasi, perintah lokal akan tetap berfungsi dan jawaban AI hanya akan dinonaktifkan.
 
-## How the AI chat works today
+## Cara kerja obrolan AI saat ini
 
-- [`src/services/cerebras.js`](../src/services/cerebras.js) reads the API key from
-  `import.meta.env.VITE_CEREBRAS_API_KEY` (or the legacy
-  `REACT_APP_CEREBRAS_API_KEY`) and calls the Cerebras chat-completions endpoint
-  **directly from the browser**, streaming the response back into the widget.
-- [`src/services/aiContext.js`](../src/services/aiContext.js) builds the system
-  prompt and a query-scoped context from your portfolio data.
-- [`src/services/intentRouter.js`](../src/services/intentRouter.js) maps user intent
-  to section navigation; [`src/services/responseSanitizer.js`](../src/services/responseSanitizer.js)
-  cleans up model output.
+- [`src/services/cerebras.js`](../src/services/cerebras.js) membaca API key dari `import.meta.env.VITE_CEREBRAS_API_KEY` (atau variabel lama `REACT_APP_CEREBRAS_API_KEY`) dan memanggil endpoint chat-completions Cerebras **langsung dari browser**, lalu mengalirkan respons kembali ke dalam widget chat.
+- [`src/services/aiContext.js`](../src/services/aiContext.js) menyusun prompt sistem dan konteks terbatas (query-scoped context) dari data portofolio Anda.
+- [`src/services/intentRouter.js`](../src/services/intentRouter.js) mencocokkan intensi pengguna ke navigasi bagian halaman; [`src/services/responseSanitizer.js`](../src/services/responseSanitizer.js) membersihkan output model.
 
-## ⚠️ Why the default setup is demo-only
+## ⚠️ Mengapa konfigurasi default hanya untuk demo
 
-This is a **client-side Vite app**. Every `VITE_*` (and `REACT_APP_*`) environment
-variable is **inlined into the production JavaScript bundle** at build time. So:
+Ini adalah **aplikasi Vite sisi klien**. Setiap variabel lingkungan berawalan `VITE_*` (dan `REACT_APP_*`) **disisipkan langsung ke dalam bundle JavaScript produksi** pada saat build. Jadi:
 
-- The API key you put in `.env` is **shipped to every visitor's browser** and can be
-  read with DevTools or by inspecting the bundled JS.
-- Anyone can extract the key and run up usage/cost on your account.
+- API key yang Anda letakkan di `.env` akan **terkirim ke browser setiap pengunjung** dan dapat dibaca menggunakan DevTools atau dengan memeriksa bundle JS.
+- Siapa pun dapat mengambil kunci tersebut dan menggunakannya sehingga menghabiskan kuota/biaya akun Anda.
 
-The direct call in `cerebras.js` is great for **local development and quick demos**,
-but it is **not safe for production** with a private/billable key.
+Panggilan langsung di `cerebras.js` sangat bagus untuk **pengembangan lokal dan demo cepat**, tetapi **tidak aman untuk produksi** dengan kunci API pribadi/berbayar.
 
-## ✅ Recommended architecture: frontend → serverless proxy → AI provider
+## ✅ Arsitektur yang direkomendasikan: frontend → serverless proxy → penyedia AI
 
-Move the provider call behind a backend you control. The key becomes a **server-side
-secret** that never reaches the browser.
+Pindahkan panggilan penyedia AI ke belakang backend yang Anda kontrol. Kunci API akan menjadi **rahasia di sisi server (server-side secret)** yang tidak pernah sampai ke browser.
 
 ```text
 ┌──────────────┐     POST /api/chat      ┌─────────────────────┐     Bearer KEY     ┌──────────────┐
-│   Frontend   │ ──────────────────────▶ │  Serverless API     │ ─────────────────▶ │  AI provider │
-│ (ChatWidget) │ ◀────── stream ──────── │  route (holds key)  │ ◀──── stream ───── │  (Cerebras)  │
+│   Frontend   │ ──────────────────────▶ │  Serverless API     │ ─────────────────▶ │ Penyedia AI  │
+│ (ChatWidget) │ ◀────── stream ──────── │ Rute (simpan kunci) │ ◀──── stream ───── │  (Cerebras)  │
 └──────────────┘                         └─────────────────────┘                    └──────────────┘
 ```
 
-- The frontend calls **your** endpoint (`/api/chat`), never the provider directly.
-- The serverless function reads the key from a **server-only** env var (no `VITE_` /
-  `REACT_APP_` prefix), forwards the request, and streams the response back.
-- The key is never present in the client bundle.
+- Frontend memanggil endpoint **Anda** (`/api/chat`), bukan langsung ke penyedia AI.
+- Fungsi serverless membaca kunci dari variabel lingkungan **server-only** (tanpa awalan `VITE_` / `REACT_APP_`), menerusan permintaan, dan mengalirkan respons kembali ke browser.
+- Kunci API tidak pernah ada di bundle klien.
 
-### Example: serverless proxy (Vercel / Netlify style)
+### Contoh: proxy serverless (gaya Vercel / Netlify)
 
-Create `api/chat.js` (deployed as a serverless function — exact folder depends on
-your host):
+Buat file `api/chat.js` (dideploy sebagai serverless function — folder pastinya tergantung layanan hosting Anda):
 
 ```js
-// Server-side only. NOTE: no VITE_/REACT_APP_ prefix => not exposed to the client.
+// Sisi server saja. CATATAN: tanpa awalan VITE_/REACT_APP_ => tidak terekspos ke klien.
 const CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions";
 
 export default async function handler(req, res) {
@@ -69,17 +51,17 @@ export default async function handler(req, res) {
     return;
   }
 
-  const apiKey = process.env.CEREBRAS_API_KEY; // server secret
+  const apiKey = process.env.CEREBRAS_API_KEY; // rahasia server
   if (!apiKey) {
     res.status(500).json({ error: "Server is missing CEREBRAS_API_KEY" });
     return;
   }
 
-  // Optional but recommended: validate/limit the incoming payload, and
-  // restrict CORS to your own origin before forwarding.
+  // Opsional tetapi direkomendasikan: validasi/batasi muatan payload masuk,
+  // dan batasi CORS hanya untuk origin Anda sendiri sebelum meneruskannya.
   const { messages } = req.body ?? {};
   if (!Array.isArray(messages)) {
-    res.status(400).json({ error: "Invalid 'messages' payload" });
+    res.status(400).json({ error: "Payload 'messages' tidak valid" });
     return;
   }
 
@@ -99,11 +81,11 @@ export default async function handler(req, res) {
   });
 
   if (!upstream.ok || !upstream.body) {
-    res.status(upstream.status || 502).json({ error: "Upstream error" });
+    res.status(upstream.status || 502).json({ error: "Kesalahan upstream" });
     return;
   }
 
-  // Stream the provider response straight back to the browser.
+  // Alirkan respons penyedia langsung kembali ke browser.
   res.setHeader("Content-Type", "text/event-stream");
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader("Connection", "keep-alive");
@@ -119,45 +101,39 @@ export default async function handler(req, res) {
 }
 ```
 
-Set the secret in your host's dashboard (server environment, **not** a `VITE_` var):
+Atur rahasia (secret) di dashboard hosting Anda (lingkungan server, **bukan** variabel `VITE_`):
 
 ```bash
-CEREBRAS_API_KEY=your_real_key_here
+CEREBRAS_API_KEY=kunci_asli_anda_di_sini
 ```
 
-### Point the frontend at your proxy
+### Arahkan frontend ke proxy Anda
 
-In [`src/services/cerebras.js`](../src/services/cerebras.js), replace the direct
-provider URL + `Authorization` header with a call to your own endpoint, and remove
-the client-side key entirely:
+Di [`src/services/cerebras.js`](../src/services/cerebras.js), ganti URL penyedia langsung + header `Authorization` dengan panggilan ke endpoint Anda sendiri, dan hapus kunci di sisi klien sepenuhnya:
 
 ```js
-// Instead of calling the provider with a bundled key, call your own proxy:
+// Alih-alih memanggil penyedia secara langsung dengan kunci yang di-bundle, panggil proxy Anda sendiri:
 const response = await fetch("/api/chat", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ messages: conversation }),
 });
-// ...then parse the streamed response exactly as before.
+// ...kemudian parse respons streaming persis seperti sebelumnya.
 ```
 
-Because the key is no longer in the client, you can drop
-`VITE_CEREBRAS_API_KEY` / `REACT_APP_CEREBRAS_API_KEY` from the frontend `.env`.
+Karena kunci API tidak ada lagi di klien, Anda dapat menghapus variabel `VITE_CEREBRAS_API_KEY` / `REACT_APP_CEREBRAS_API_KEY` dari file `.env` frontend Anda.
 
-## Hardening checklist for the proxy
+## Daftar periksa keamanan (hardening) untuk proxy
 
-- [ ] Store the key as a server-only secret (no `VITE_`/`REACT_APP_` prefix).
-- [ ] Restrict CORS to your own domain.
-- [ ] Add rate limiting / basic abuse protection.
-- [ ] Validate and size-limit the incoming `messages` payload.
-- [ ] Set usage/spending caps with your AI provider.
-- [ ] Rotate any key that was ever shipped in a client bundle.
+- [ ] Simpan kunci API sebagai rahasia server saja (tanpa awalan `VITE_`/`REACT_APP_`).
+- [ ] Batasi CORS hanya untuk domain Anda sendiri.
+- [ ] Tambahkan pembatasan tingkat permintaan (rate limiting) / perlindungan penyalahgunaan dasar.
+- [ ] Lakukan validasi dan pembatasan ukuran payload `messages` yang masuk.
+- [ ] Atur batas penggunaan/biaya dengan penyedia AI Anda.
+- [ ] Ganti kunci API apa pun yang pernah terekspos di bundle klien sebelumnya.
 
-## Switching providers
+## Mengganti penyedia AI (AI Provider)
 
-The assistant uses an OpenAI-compatible streaming format. To use a different
-provider, change the endpoint, model, and (if needed) the SSE parsing in
-`cerebras.js` — or, better, do that translation inside your serverless proxy and keep
-the frontend calling `/api/chat`.
+Asisten terminal menggunakan format streaming yang kompatibel dengan OpenAI. Untuk menggunakan penyedia yang berbeda, ubah endpoint, model, dan (jika diperlukan) parser SSE di `cerebras.js` — atau, lebih baik lagi, lakukan konversi tersebut di dalam serverless proxy Anda sehingga frontend tetap memanggil `/api/chat`.
 
-See also: [`SECURITY.md`](../SECURITY.md) and [`docs/customization.md`](customization.md).
+Lihat juga: [`SECURITY.md`](../SECURITY.md) dan [`docs/customization.md`](customization.md).

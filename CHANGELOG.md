@@ -1,30 +1,23 @@
-# Changelog
+# Catatan Perubahan (Changelog)
 
-All notable changes to this project are documented in this file.
+Semua perubahan penting pada proyek ini akan didokumentasikan dalam file ini.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+Format catatan ini didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.0] - Initial open-source release
+## [0.1.0] - Rilis Awal Open-Source
 
-### Added
+### Ditambahkan
 
-- React + Vite starter with an optimized production build (output to `build/`).
-- Tailwind CSS styling with the `@tailwindcss/typography` plugin.
-- GSAP motion system with ScrollTrigger for scroll-linked and pinned animations.
-- Lenis smooth scrolling integrated with GSAP/ScrollTrigger.
-- Project case study structure: gallery cards (`projectMeta.js`), detail data
-  (`projectDetailsData.js`), detail routes/modals, and a custom detail registry.
-- Centralized portfolio data (`portfolioData.js`) so content is edited separately
-  from layout and animation code.
-- Optional AI-powered terminal assistant with local commands (`help`, `ls`,
-  `cat <slug>`, `neofetch`, `date`, `whoami`) plus an optional LLM-backed chat.
-- Accessibility-friendly motion that respects the OS `prefers-reduced-motion`
-  setting in CSS and JS.
-- Open-source project files: MIT license, README, contributing guide, security
-  policy, code of conduct, issue/PR templates, and customization, AI terminal, and
-  roadmap docs.
-- Example/placeholder portfolio data (`examplePortfolioData.js`) to make the project
-  easy to reuse as a starter.
+- Starter React + Vite dengan build produksi yang dioptimalkan (output ke `build/`).
+- Styling Tailwind CSS dengan plugin `@tailwindcss/typography`.
+- Sistem animasi GSAP dengan ScrollTrigger untuk animasi berbasis scroll dan pin section.
+- Smooth scrolling Lenis yang terintegrasi dengan GSAP/ScrollTrigger.
+- Struktur studi kasus proyek: kartu galeri (`projectMeta.js`), data detail (`projectDetailsData.js`), rute/modal detail, dan registri detail kustom.
+- Data portofolio terpusat (`portfolioData.js`) sehingga pengeditan konten terpisah dari kode layout dan animasi.
+- Asisten terminal bertenaga AI (opsional) dengan perintah lokal (`help`, `ls`, `cat <slug>`, `neofetch`, `date`, `whoami`) serta chat berbasis LLM opsional.
+- Animasi ramah aksesibilitas yang menghormati pengaturan OS `prefers-reduced-motion` di CSS dan JS.
+- File proyek open-source: Lisensi MIT, README, panduan kontribusi, kebijakan keamanan, kode etik, templat issue/PR, serta dokumen penyesuaian, terminal AI, dan peta jalan (roadmap).
+- Data contoh portofolio (`examplePortfolioData.js`) untuk mempermudah penggunaan ulang proyek sebagai starter.
 
 [0.1.0]: https://github.com/hery2606/Portfolio/releases/tag/v0.1.0
