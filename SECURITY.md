@@ -36,6 +36,22 @@ Fungsi serverless akan membaca kunci dari variabel lingkungan server-only (tanpa
 
 Lihat [docs/ai-terminal.md](docs/ai-terminal.md) untuk arsitektur yang direkomendasikan dan contoh proxy.
 
+### Keamanan API Proxy & Konfigurasi Serverless
+
+Template ini sekarang menyertakan implementasi serverless proxy yang aman di `api/chat.js` (berjalan di Vercel Edge Runtime) dengan fitur pengerasan keamanan bawaan:
+
+1. **CORS & Verifikasi Origin**:
+   - Proxy memvalidasi header `Origin` request secara ketat.
+   - Hanya domain yang diizinkan (seperti `localhost`, `*.github.io`, `*.vercel.app`, atau domain yang dikonfigurasi di file `api/chat.js`) yang dapat memanggil API proxy. Domain eksternal tak dikenal akan ditolak dengan status `403 Forbidden`.
+   
+2. **Server-side Prompt Construction (Anti Prompt Injection)**:
+   - Proxy membuang semua pesan `system` yang dikirim dari browser klien (`messages.filter(m => m.role !== 'system')`).
+   - System prompt portofolio dan *scoped context* dirakit secara aman langsung di sisi server. Hal ini memastikan penyerang tidak dapat menimpa instruksi sistem portofolio untuk menggunakan API key Anda sebagai asisten umum gratis (seperti pemecah matematika atau penerjemah kode).
+
+3. **Cara Deploy Aman di Vercel**:
+   - Saat mendeploy portofolio ke Vercel, jangan setel variabel lingkungan `VITE_CEREBRAS_API_KEY` agar frontend memanggil Serverless Proxy secara otomatis.
+   - Setel API key Anda dengan nama **`CEREBRAS_API_KEY`** (tanpa awalan `VITE_`) di dashboard Vercel (**Settings -> Environment Variables**). Ini memastikan kunci tersimpan aman sebagai variabel lingkungan server-only dan tidak terekspos ke browser.
+
 ### Tips Pengerasan (Hardening) Lainnya
 
 - Tambahkan pembatasan tingkat permintaan (rate limiting) dan perlindungan penyalahgunaan dasar pada setiap endpoint proxy yang Anda deploy.
