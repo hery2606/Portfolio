@@ -103,12 +103,6 @@ async function* parseOpenAICompatibleStream(response) {
  * @returns {AsyncGenerator<string>} - Yields text content chunks
  */
 export async function* streamCerebras(messages, vibe = 'ramah', freeMode = false) {
-    if (!API_KEY) {
-        const error = new Error('Missing API key');
-        error.status = 401;
-        throw classifyError(error);
-    }
-
     const systemPrompt = generateSystemPrompt(vibe, freeMode);
     const latestUserMessage = [...messages].reverse().find(m => m.role === 'user')?.content || '';
     const scopedContext = buildScopedContext(latestUserMessage);
@@ -120,23 +114,38 @@ export async function* streamCerebras(messages, vibe = 'ramah', freeMode = false
     ];
 
     try {
-        const response = await fetch(CEREBRAS_CHAT_COMPLETIONS_URL, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${API_KEY}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                messages: conversation,
-                model: "gpt-oss-120b",
-                max_tokens: 1024,
-                temperature: 0.35,
-                stream: true,
-            }),
-        });
+        let response;
+        if (API_KEY) {
+            // Panggilan langsung sisi klien (untuk local development / demo cepat)
+            response = await fetch(CEREBRAS_CHAT_COMPLETIONS_URL, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${API_KEY}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    messages: conversation,
+                    model: "gpt-oss-120b",
+                    max_tokens: 1024,
+                    temperature: 0.35,
+                    stream: true,
+                }),
+            });
+        } else {
+            // Panggilan aman sisi server melalui proxy (untuk production deployment)
+            response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    messages: conversation,
+                }),
+            });
+        }
 
         if (!response.ok) {
-            const error = new Error(`Cerebras API error: ${response.status}`);
+            const error = new Error(`API error: ${response.status}`);
             error.status = response.status;
             throw error;
         }

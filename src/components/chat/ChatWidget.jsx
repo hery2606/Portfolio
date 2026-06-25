@@ -380,16 +380,15 @@ const ChatWidget = ({ isOpen: controlledIsOpen, onOpenChange }) => {
     // Flow: Pre-filter -> Resolve action -> LLM call -> Typewrite -> Execute action
     const handleSendMessage = useCallback(async (e, directMsg) => {
         if (e) e.preventDefault();
+        if (isTyping || isStreaming) return;
         const userMsg = (directMsg || inputValue).trim();
         if (!userMsg) return;
 
-        // Save to command history
         setCommandHistory(prev => [...prev, userMsg]);
         historyIndexRef.current = -1;
         savedInputRef.current = "";
         setInputValue("");
 
-        // Check for Free Mode Activation triggers
         const normalizedMsg = userMsg.toLowerCase().trim();
         const FREE_MODE_TRIGGERS = [
             "mode on diaktifkan",
@@ -604,10 +603,10 @@ const ChatWidget = ({ isOpen: controlledIsOpen, onOpenChange }) => {
 
                     {/* Quick Options */}
                     <div className="px-3 py-2 border-t border-neutral-800 bg-[#0c0c0c] flex gap-2 overflow-x-auto no-scrollbar">
-                        <button onClick={() => quickAction("Tell me about your tech stack")} className="text-[10px] text-neutral-400 border border-neutral-700 px-2 py-0.5 rounded hover:border-lime-400 hover:text-lime-400 transition-colors whitespace-nowrap" aria-label="Ask about tech stack">./stack</button>
-                        <button onClick={() => quickAction("Show me your projects")} className="text-[10px] text-neutral-400 border border-neutral-700 px-2 py-0.5 rounded hover:border-lime-400 hover:text-lime-400 transition-colors whitespace-nowrap" aria-label="Ask about projects">./projects</button>
-                        <button onClick={() => quickAction("beritahu aku tentang pengalaman")} className="text-[10px] text-neutral-400 border border-neutral-700 px-2 py-0.5 rounded hover:border-lime-400 hover:text-lime-400 transition-colors whitespace-nowrap" aria-label="Ask about experience">./experience</button>
-                        <button onClick={() => quickAction("How can I contact you?")} className="text-[10px] text-neutral-400 border border-neutral-700 px-2 py-0.5 rounded hover:border-lime-400 hover:text-lime-400 transition-colors whitespace-nowrap" aria-label="Ask about contact">./contact</button>
+                        <button disabled={isTyping || isStreaming} onClick={() => quickAction("Tell me about your tech stack")} className="text-[10px] text-neutral-400 border border-neutral-700 px-2 py-0.5 rounded hover:border-lime-400 hover:text-lime-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none transition-colors whitespace-nowrap" aria-label="Ask about tech stack">./stack</button>
+                        <button disabled={isTyping || isStreaming} onClick={() => quickAction("Show me your projects")} className="text-[10px] text-neutral-400 border border-neutral-700 px-2 py-0.5 rounded hover:border-lime-400 hover:text-lime-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none transition-colors whitespace-nowrap" aria-label="Ask about projects">./projects</button>
+                        <button disabled={isTyping || isStreaming} onClick={() => quickAction("beritahu aku tentang pengalaman")} className="text-[10px] text-neutral-400 border border-neutral-700 px-2 py-0.5 rounded hover:border-lime-400 hover:text-lime-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none transition-colors whitespace-nowrap" aria-label="Ask about experience">./experience</button>
+                        <button disabled={isTyping || isStreaming} onClick={() => quickAction("How can I contact you?")} className="text-[10px] text-neutral-400 border border-neutral-700 px-2 py-0.5 rounded hover:border-lime-400 hover:text-lime-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none transition-colors whitespace-nowrap" aria-label="Ask about contact">./contact</button>
                     </div>
 
                     {/* Input Area */}
