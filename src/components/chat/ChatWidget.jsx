@@ -18,17 +18,23 @@ const COMMANDS = {
         desc: "Show available commands",
         run: () => [
             "  AVAILABLE COMMANDS",
-            "  ──────────────────────────────",
-            "  help       Show this help menu",
-            "  ls         List all projects",
-            "  cat <id>   View project details",
-            "  vibe <mode> Change AI vibe (ramah|pro|hacker)",
-            "  neofetch   System info",
-            "  whoami     Current user",
-            "  date       Current date & time",
-            "  history    Command history",
-            "  clear      Clear terminal",
-            "  ──────────────────────────────",
+            "  ────────────────────────────────────────",
+            "  help         Show this help menu",
+            "  ls           List all projects",
+            "  cat <id>     View project details",
+            "  vibe <mode>  Change AI vibe (ramah|pro|hacker)",
+            "  neofetch     System info",
+            "  whoami       Current user",
+            "  date         Current date & time",
+            "  contact      Show contact info",
+            "  skills       List technical skills",
+            "  experience   Show work experience",
+            "  joke         Tell a programmer joke",
+            "  secret       Reveal a portfolio secret",
+            "  sudo su      Unlock superuser mode",
+            "  history      Command history",
+            "  clear        Clear terminal",
+            "  ────────────────────────────────────────",
             "",
             "  Or just ask me anything about HERI ARISTA!"
         ].join('\n')
@@ -83,7 +89,87 @@ const COMMANDS = {
     },
     whoami: {
         desc: "Current user",
-        run: () => "guest@portfolio-visitor"
+        run: () => "hery@portfolio.id"
+    },
+    contact: {
+        desc: "Show contact information",
+        run: () => {
+            const p = PORTFOLIO_DATA.profile;
+            return [
+                "📞 CONTACT INFORMATION",
+                "========================================",
+                `┌─ ● GET IN TOUCH`,
+                `│  📧 Email    : ${p.email}`,
+                `│  🐙 GitHub   : ${p.socials.github}`,
+                `│  💼 LinkedIn : ${p.socials.linkedin}`,
+                `└──────────────────────────────────────`,
+                "========================================"
+            ].join('\n');
+        }
+    },
+    skills: {
+        desc: "List technical skills",
+        run: () => {
+            const techs = PORTFOLIO_DATA.techStack;
+            const grouped = {};
+            techs.forEach(t => {
+                if (!grouped[t.category]) grouped[t.category] = [];
+                grouped[t.category].push(t.name);
+            });
+            const items = Object.entries(grouped).map(([cat, list]) => {
+                const header = `┌─ ● ${cat.toUpperCase()}`;
+                const listStr = `│  ${list.join('  •  ')}`;
+                return `${header}\n${listStr}\n└──────────────────────────────────────`;
+            });
+            return [
+                "🛠️ TECHNICAL SKILLS",
+                "========================================",
+                ...items,
+                "========================================"
+            ].join('\n');
+        }
+    },
+    experience: {
+        desc: "Show professional experience",
+        run: () => {
+            const items = PORTFOLIO_DATA.experience.map(exp => {
+                const header = `┌─ ● ${exp.title.toUpperCase()}`;
+                const period = `│  📅 ${exp.period}`;
+                const desc = exp.description.map(d => `│  ▪ ${d}`).join('\n');
+                return `${header}\n${period}\n${desc}\n└──────────────────────────────────────`;
+            });
+            return [
+                "👔 PROFESSIONAL EXPERIENCE",
+                "========================================",
+                ...items,
+                "========================================"
+            ].join('\n');
+        }
+    },
+    joke: {
+        desc: "Tell a programmer joke",
+        run: () => {
+            const jokes = [
+                "Why do programmers wear glasses?\nBecause they can't C#! 🤓",
+                "There are 10 types of people in the world:\nThose who understand binary, and those who don't. 🤖",
+                "How many programmers does it take to change a light bulb?\nNone, that's a hardware problem! 🔌",
+                "['hip', 'hip']\n(hip hip array! 🥳)",
+                "Why did the programmer quit his job?\nBecause he didn't get arrays. 💸",
+                "A SQL query goes into a bar, walks up to two tables and asks,\n'Can I join you?' 📊"
+            ];
+            return jokes[Math.floor(Math.random() * jokes.length)];
+        }
+    },
+    secret: {
+        desc: "Reveal a secret",
+        run: () => [
+            "🤫 SECRETS DETECTED:",
+            "  ────────────────────────────────────────",
+            "  Did you know? Hery was once a National Finalist",
+            "  at Base Indonesia Hackathon 2025 with 'Base Realms'!",
+            "  Try running 'sudo su' to unlock root privileges.",
+            "  ────────────────────────────────────────"
+        ].join('\n')
     },
 };
 
@@ -364,6 +450,23 @@ const ChatWidget = ({ isOpen: controlledIsOpen, onOpenChange }) => {
             return true;
         }
 
+        if (lower.startsWith("sudo ") || lower === "sudo") {
+            const args = trimmed.slice(4).trim();
+            let responseText = "";
+            if (args.toLowerCase() === "su" || args.toLowerCase() === "su -") {
+                responseText = "[SYSTEM]: Superuser privileges requested!\nAttempting to bypass security...\nJust kidding! guest is not in the sudoers file. This incident will be reported. 🤫";
+            } else if (args) {
+                responseText = `sudo: command not found: ${args}\nNice try though!`;
+            } else {
+                responseText = "Usage: sudo <command>\nExample: sudo su";
+            }
+            setMessages(prev => [...prev,
+                { type: 'user', text: trimmed },
+                { type: 'bot', text: responseText, isTerminal: true }
+            ]);
+            return true;
+        }
+
         if (COMMANDS[lower]) {
             const result = COMMANDS[lower].run();
             setMessages(prev => [...prev,
@@ -512,7 +615,7 @@ const ChatWidget = ({ isOpen: controlledIsOpen, onOpenChange }) => {
 
             {/* Chat Window */}
             {isOpen && (
-                <div className="mb-3 md:mb-4 w-[min(95vw,480px)] bg-[#0c0c0c] border border-neutral-800 shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-300 rounded-md">
+                <div className="mb-3 md:mb-4 w-[min(100vw,600px)] bg-[#0c0c0c] border border-neutral-800 shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-300 rounded-md">
 
                     {/* Terminal Header */}
                     <div className="bg-[#1a1a1a] px-3 py-2 flex justify-between items-center border-b border-neutral-800 select-none">
@@ -607,6 +710,7 @@ const ChatWidget = ({ isOpen: controlledIsOpen, onOpenChange }) => {
                         <button disabled={isTyping || isStreaming} onClick={() => quickAction("Show me your projects")} className="text-[10px] text-neutral-400 border border-neutral-700 px-2 py-0.5 rounded hover:border-lime-400 hover:text-lime-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none transition-colors whitespace-nowrap" aria-label="Ask about projects">./projects</button>
                         <button disabled={isTyping || isStreaming} onClick={() => quickAction("beritahu aku tentang pengalaman")} className="text-[10px] text-neutral-400 border border-neutral-700 px-2 py-0.5 rounded hover:border-lime-400 hover:text-lime-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none transition-colors whitespace-nowrap" aria-label="Ask about experience">./experience</button>
                         <button disabled={isTyping || isStreaming} onClick={() => quickAction("How can I contact you?")} className="text-[10px] text-neutral-400 border border-neutral-700 px-2 py-0.5 rounded hover:border-lime-400 hover:text-lime-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none transition-colors whitespace-nowrap" aria-label="Ask about contact">./contact</button>
+                        <button disabled={isTyping || isStreaming} onClick={() => quickAction("help")} className="text-[10px] text-neutral-400 border border-neutral-700 px-2 py-0.5 rounded hover:border-lime-400 hover:text-lime-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none transition-colors whitespace-nowrap" aria-label="Show help menu">help</button>
                     </div>
 
                     {/* Input Area */}
