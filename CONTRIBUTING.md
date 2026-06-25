@@ -1,4 +1,4 @@
-# Berkontribusi pada MotionFolio
+# Berkontribusi pada PortFolio
 
 Terima kasih atas minat Anda untuk berkontribusi! MotionFolio adalah starter portofolio teranimasi open-source, dan kontribusi dalam berbagai skala sangat diterima — baik perbaikan bug, dokumentasi, pola animasi baru, preset tema, maupun peningkatan aksesibilitas.
 
