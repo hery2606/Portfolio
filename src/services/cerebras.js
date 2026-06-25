@@ -139,7 +139,9 @@ export async function* streamCerebras(messages, vibe = 'ramah', freeMode = false
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    messages: conversation,
+                    messages: messages,
+                    vibe,
+                    freeMode,
                 }),
             });
         }
